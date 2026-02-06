@@ -84,8 +84,8 @@ const ROICalculator = () => {
   const selectedCalc = calculations.find((c) => c.plan === selectedPlan)!;
 
   return (
-    <section id="roi" className="py-24 md:py-32 bg-gradient-dark relative overflow-hidden">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-[1px] bg-gradient-gold" />
+    <section id="roi" className="py-24 md:py-32 bg-section-alt relative overflow-hidden">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-[1px] bg-gradient-gold opacity-40" />
 
       <div className="container mx-auto px-6">
         <motion.div
@@ -95,7 +95,7 @@ const ROICalculator = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <p className="text-primary text-sm tracking-[0.3em] uppercase mb-4 font-body">
+          <p className="text-primary text-xs tracking-[0.4em] uppercase mb-4 font-body">
             Interactive Analysis
           </p>
           <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-6">
@@ -113,7 +113,7 @@ const ROICalculator = () => {
           viewport={{ once: true }}
           className="max-w-4xl mx-auto mb-12"
         >
-          <div className="bg-gradient-card rounded-xl p-8 border border-border shadow-card">
+          <div className="bg-background rounded-xl p-8 border border-border shadow-card">
             <div className="flex items-center gap-3 mb-6">
               <Calculator className="w-5 h-5 text-primary" />
               <h3 className="font-display text-lg font-semibold text-foreground">
@@ -178,13 +178,13 @@ const ROICalculator = () => {
               { label: "Rental Income", value: `AED ${formatCurrency(selectedCalc.rentalIncome)}`, highlight: false },
               { label: "ROI", value: `${selectedCalc.roi.toFixed(0)}%`, highlight: true },
             ].map((item) => (
-              <div
-                key={item.label}
-                className={`rounded-xl p-6 text-center border shadow-card ${
-                  item.highlight
-                    ? "bg-primary/10 border-primary/30"
-                    : "bg-gradient-card border-border"
-                }`}
+               <div
+                 key={item.label}
+                 className={`rounded-xl p-6 text-center border shadow-card ${
+                   item.highlight
+                     ? "bg-primary/5 border-primary/30"
+                     : "bg-background border-border"
+                 }`}
               >
                 <p className="text-xs text-muted-foreground mb-2 uppercase tracking-wider">
                   {item.label}
@@ -208,7 +208,7 @@ const ROICalculator = () => {
           viewport={{ once: true }}
           className="max-w-6xl mx-auto mb-10"
         >
-          <div className="bg-gradient-card rounded-xl border border-border shadow-card overflow-hidden">
+          <div className="bg-background rounded-xl border border-border shadow-card overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
@@ -294,7 +294,7 @@ const ROICalculator = () => {
             <TrendingUp className="w-5 h-5 text-primary" />
             Year-by-Year Breakdown ({paymentPlans.find((p) => p.plan === selectedPlan)?.label})
           </h3>
-          <div className="bg-gradient-card rounded-xl border border-border shadow-card overflow-hidden">
+          <div className="bg-background rounded-xl border border-border shadow-card overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
