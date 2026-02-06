@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Phone, Mail, MapPin, MessageCircle } from "lucide-react";
+import { Phone, Mail, MapPin } from "lucide-react";
 
 const ContactCTA = () => {
   return (
@@ -35,65 +35,74 @@ const ContactCTA = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="bg-gradient-card rounded-2xl p-8 md:p-12 border border-border shadow-card"
           >
-            <div className="grid md:grid-cols-2 gap-10">
-              <div>
-                <h3 className="font-display text-2xl font-bold text-foreground mb-2">
+            <div className="grid md:grid-cols-2 gap-10 items-center">
+              {/* Left: Shekhar's info */}
+              <div className="flex flex-col items-center md:items-start text-center md:text-left">
+                <div className="w-28 h-28 rounded-full bg-primary/10 border-2 border-primary/30 flex items-center justify-center mb-6 overflow-hidden">
+                  <span className="font-display text-4xl font-bold text-primary">S</span>
+                </div>
+
+                <h3 className="font-display text-2xl font-bold text-foreground mb-1">
                   Shekhar Beura
                 </h3>
-                <p className="text-primary text-sm font-semibold mb-6 tracking-wide">
-                  Altira Aura Real Estate
+                <p className="text-primary text-sm font-semibold mb-1 tracking-wide">
+                  Dubai Real Estate Advisor
+                </p>
+                <p className="text-muted-foreground text-sm mb-6">
+                  In Dubai since 2012 · From Bhubaneswar, one of you
                 </p>
 
-                <div className="space-y-4">
-                  <a
-                    href="tel:+971569510061"
-                    className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors group"
-                  >
-                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                      <Phone className="w-4 h-4 text-primary" />
-                    </div>
-                    <span className="text-sm">(+971) 569 510 061</span>
-                  </a>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  Just a real conversation to help you make the right call.
+                  Happy to connect 1:1.
+                </p>
+              </div>
 
-                  <a
-                    href="mailto:shekhar@altiraaura.com"
-                    className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors group"
-                  >
-                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                      <Mail className="w-4 h-4 text-primary" />
-                    </div>
-                    <span className="text-sm">shekhar@altiraaura.com</span>
-                  </a>
+              {/* Right: Contact details */}
+              <div className="space-y-5">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <Phone className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">WhatsApp / Call</p>
+                    <p className="text-foreground text-lg font-bold font-display tracking-wide">
+                      +971 56 951 0061
+                    </p>
+                  </div>
+                </div>
 
-                  <div className="flex items-center gap-3 text-muted-foreground">
-                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                      <MapPin className="w-4 h-4 text-primary" />
-                    </div>
-                    <span className="text-sm">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <Mail className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Email</p>
+                    <p className="text-foreground text-sm font-medium">
+                      shekhar@altiraaura.com
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <MapPin className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Office</p>
+                    <p className="text-foreground text-sm">
                       2007, Grosvenor Business Tower,
                       <br />
                       Barsha Heights, Dubai, UAE
-                    </span>
+                    </p>
                   </div>
                 </div>
-              </div>
 
-              <div className="flex flex-col items-center justify-center text-center">
-                <p className="text-muted-foreground text-sm mb-6">
-                  Just a real conversation to help you make the right call.
-                </p>
-                <a
-                  href="https://wa.me/971569510061"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 bg-gradient-gold text-primary-foreground px-8 py-4 rounded-full text-base font-semibold hover:opacity-90 transition-all shadow-gold w-full justify-center"
-                >
-                  <MessageCircle className="w-5 h-5" />
-                  DM on WhatsApp
-                </a>
-                <p className="text-xs text-muted-foreground mt-4">
-                  Available 7 days a week · Response within 1 hour
-                </p>
+                <div className="pt-4 border-t border-border">
+                  <p className="text-xs text-muted-foreground">
+                    Available 7 days a week · Response within 1 hour
+                  </p>
+                </div>
               </div>
             </div>
           </motion.div>
@@ -103,16 +112,11 @@ const ContactCTA = () => {
       {/* Footer */}
       <div className="mt-20 border-t border-border pt-8">
         <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-gradient-gold flex items-center justify-center">
-              <span className="font-display font-bold text-primary-foreground text-sm">A</span>
-            </div>
-            <span className="font-display text-sm text-muted-foreground">
-              Altira Aura Real Estate
-            </span>
-          </div>
+          <span className="font-display text-sm text-muted-foreground">
+            Shekhar Beura · Dubai Real Estate Advisor
+          </span>
           <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Altira Aura Real Estate. All rights reserved.
+            © {new Date().getFullYear()} All rights reserved.
           </p>
         </div>
       </div>
