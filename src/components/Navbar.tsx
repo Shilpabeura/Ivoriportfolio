@@ -20,15 +20,12 @@ const Navbar = () => {
     >
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-gradient-gold flex items-center justify-center">
-            <span className="font-display font-bold text-primary-foreground text-lg">A</span>
-          </div>
           <div>
-            <h1 className="font-display text-lg font-semibold text-foreground tracking-wide">
-              Altira Aura
+            <h1 className="font-display text-xl font-bold text-foreground tracking-wide">
+              Shekhar Beura
             </h1>
             <p className="text-xs text-muted-foreground tracking-widest uppercase">
-              Real Estate
+              Dubai Real Estate Advisor
             </p>
           </div>
         </div>
@@ -43,15 +40,13 @@ const Navbar = () => {
           <a href="#roi" className="text-sm text-muted-foreground hover:text-primary transition-colors">
             ROI Calculator
           </a>
-          <a
-            href="https://wa.me/971569510061"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 bg-gradient-gold text-primary-foreground px-5 py-2.5 rounded-full text-sm font-semibold hover:opacity-90 transition-opacity"
-          >
-            <Phone className="w-4 h-4" />
-            WhatsApp Me
+          <a href="#contact" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+            Contact
           </a>
+          <div className="flex items-center gap-2 bg-gradient-gold text-primary-foreground px-5 py-2.5 rounded-full text-sm font-semibold">
+            <Phone className="w-4 h-4" />
+            +971 56 951 0061
+          </div>
         </div>
       </div>
     </nav>

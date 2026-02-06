@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowDown, Phone } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import heroImage from "@/assets/dubai-hero.jpg";
 
 const Hero = () => {
@@ -29,18 +29,21 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}
         >
-          <p className="text-primary font-body text-sm md:text-base tracking-[0.3em] uppercase mb-6">
-            Dubai Investment Opportunity 2026
+          <p className="text-primary font-body text-sm md:text-base tracking-[0.3em] uppercase mb-4">
+            Real insights. Real returns.
           </p>
 
-          <h1 className="font-display text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-foreground leading-[1.1] mb-6">
-            Dubai's Real Estate
+          <h1 className="font-display text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-foreground leading-[1.1] mb-4">
+            Unlock Dubai's
             <br />
-            <span className="text-gradient-gold">Bull Run Is Here</span>
+            <span className="text-gradient-gold">Property Potential</span>
           </h1>
 
-          <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light">
-            Don't watch it from the sidelines. <span className="text-foreground font-medium">Profit from it.</span>
+          <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto mb-4 font-light">
+            An investor-focused perspective on Dubai real estate —
+          </p>
+          <p className="text-foreground text-lg md:text-xl max-w-2xl mx-auto mb-10 font-medium">
+            what works, what delivers, and how to invest with clarity.
           </p>
         </motion.div>
 
@@ -51,17 +54,14 @@ const Hero = () => {
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <a
-            href="https://wa.me/971569510061"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#contact"
             className="flex items-center gap-3 bg-gradient-gold text-primary-foreground px-8 py-4 rounded-full text-base font-semibold hover:opacity-90 transition-all shadow-gold"
           >
-            <Phone className="w-5 h-5" />
-            Start a Conversation
+            Connect with Shekhar
           </a>
           <a
             href="#roi"
-            className="flex items-center gap-2 border border-primary/30 text-primary px-8 py-4 rounded-full text-base font-medium hover:bg-primary/5 transition-all"
+            className="flex items-center gap-2 border border-primary/40 text-primary px-8 py-4 rounded-full text-base font-medium hover:bg-primary/5 transition-all"
           >
             View ROI Analysis
           </a>
