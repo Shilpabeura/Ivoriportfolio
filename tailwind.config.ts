@@ -62,6 +62,7 @@ export default {
           deep: "hsl(var(--navy-deep))",
         },
         cream: "hsl(var(--cream))",
+        slate: "hsl(var(--slate))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",

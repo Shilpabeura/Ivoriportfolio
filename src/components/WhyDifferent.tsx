@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { TrendingUp, Building2, Shield, Banknote, DollarSign } from "lucide-react";
+import dubaiSkyline from "@/assets/dubai-skyline.jpg";
 
 const reasons = [
   {
@@ -31,29 +32,51 @@ const reasons = [
 
 const WhyDifferent = () => {
   return (
-    <section id="why" className="py-24 md:py-32 bg-gradient-dark relative overflow-hidden">
-      {/* Subtle decorative element */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-[1px] bg-gradient-gold" />
-
+    <section id="why" className="py-24 md:py-32 relative overflow-hidden">
       <div className="container mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <p className="text-primary text-sm tracking-[0.3em] uppercase mb-4 font-body">
-            Market Intelligence
-          </p>
-          <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-6">
-            Why This Bull Run Is <span className="text-gradient-gold">Different</span>
-          </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Dubai isn't just growing — it's accelerating. This isn't hype. It's fundamentals.
-          </p>
-        </motion.div>
+        {/* Editorial layout — image + text side-by-side */}
+        <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="relative"
+          >
+            <div className="rounded-2xl overflow-hidden shadow-elevated">
+              <img
+                src={dubaiSkyline}
+                alt="Dubai futuristic skyline"
+                className="w-full h-[400px] object-cover"
+                loading="lazy"
+              />
+            </div>
+            <div className="absolute -bottom-4 -right-4 w-24 h-24 border-2 border-primary/20 rounded-2xl" />
+          </motion.div>
 
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <p className="text-primary text-xs tracking-[0.4em] uppercase mb-4 font-body">
+              Market Intelligence
+            </p>
+            <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
+              Why This Bull Run Is{" "}
+              <span className="text-gradient-gold">Different</span>
+            </h2>
+            <p className="text-muted-foreground text-lg leading-relaxed mb-2">
+              Dubai isn't just growing — it's accelerating.
+            </p>
+            <p className="text-foreground text-lg font-medium">
+              This isn't hype. It's fundamentals.
+            </p>
+          </motion.div>
+        </div>
+
+        {/* Reason cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {reasons.map((reason, index) => (
             <motion.div
@@ -62,11 +85,11 @@ const WhyDifferent = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className={`bg-gradient-card rounded-xl p-8 border border-border hover:border-primary/30 transition-all duration-500 group shadow-card ${
+              className={`bg-background rounded-xl p-8 border border-border hover:border-primary/30 transition-all duration-500 group shadow-card ${
                 index === 4 ? "md:col-span-2 lg:col-span-1 lg:col-start-2" : ""
               }`}
             >
-              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors">
+              <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center mb-5 group-hover:bg-primary/10 transition-colors">
                 <reason.icon className="w-6 h-6 text-primary" />
               </div>
               <h3 className="font-display text-xl font-semibold text-foreground mb-3">

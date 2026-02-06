@@ -1,11 +1,13 @@
 import { motion } from "framer-motion";
 import { Phone, Mail, MapPin } from "lucide-react";
+import shekharPhoto from "@/assets/shekhar-profile.jpg";
+import dubaiHero from "@/assets/dubai-hero.jpg";
 
 const ContactCTA = () => {
   return (
     <section id="contact" className="py-24 md:py-32 relative">
       <div className="container mx-auto px-6">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -13,7 +15,7 @@ const ContactCTA = () => {
             transition={{ duration: 0.8 }}
             className="text-center mb-16"
           >
-            <p className="text-primary text-sm tracking-[0.3em] uppercase mb-4 font-body">
+            <p className="text-primary text-xs tracking-[0.4em] uppercase mb-4 font-body">
               Get Started
             </p>
             <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-6">
@@ -33,75 +35,93 @@ const ContactCTA = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-gradient-card rounded-2xl p-8 md:p-12 border border-border shadow-card"
+            className="bg-background rounded-2xl border border-border shadow-elevated overflow-hidden"
           >
-            <div className="grid md:grid-cols-2 gap-10 items-center">
-              {/* Left: Shekhar's info */}
-              <div className="flex flex-col items-center md:items-start text-center md:text-left">
-                <div className="w-28 h-28 rounded-full bg-primary/10 border-2 border-primary/30 flex items-center justify-center mb-6 overflow-hidden">
-                  <span className="font-display text-4xl font-bold text-primary">S</span>
-                </div>
+            {/* Dubai skyline banner */}
+            <div className="relative h-32 overflow-hidden">
+              <img
+                src={dubaiHero}
+                alt="Dubai skyline"
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-foreground/30 to-foreground/60" />
+            </div>
 
-                <h3 className="font-display text-2xl font-bold text-foreground mb-1">
-                  Shekhar Beura
-                </h3>
-                <p className="text-primary text-sm font-semibold mb-1 tracking-wide">
-                  Dubai Real Estate Advisor
-                </p>
-                <p className="text-muted-foreground text-sm mb-6">
-                  In Dubai since 2012 · From Bhubaneswar, one of you
-                </p>
+            <div className="p-8 md:p-12 -mt-16 relative">
+              <div className="grid md:grid-cols-2 gap-10 items-start">
+                {/* Left: Shekhar's info */}
+                <div className="flex flex-col items-center md:items-start text-center md:text-left">
+                  <img
+                    src={shekharPhoto}
+                    alt="Shekhar Beura"
+                    className="w-28 h-28 rounded-full object-cover border-4 border-background shadow-elevated mb-5"
+                  />
 
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  Just a real conversation to help you make the right call.
-                  Happy to connect 1:1.
-                </p>
-              </div>
-
-              {/* Right: Contact details */}
-              <div className="space-y-5">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <Phone className="w-5 h-5 text-primary" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">WhatsApp / Call</p>
-                    <p className="text-foreground text-lg font-bold font-display tracking-wide">
-                      +971 56 951 0061
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <Mail className="w-5 h-5 text-primary" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Email</p>
-                    <p className="text-foreground text-sm font-medium">
-                      shekhar@altiraaura.com
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <MapPin className="w-5 h-5 text-primary" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Office</p>
-                    <p className="text-foreground text-sm">
-                      2007, Grosvenor Business Tower,
-                      <br />
-                      Barsha Heights, Dubai, UAE
-                    </p>
-                  </div>
-                </div>
-
-                <div className="pt-4 border-t border-border">
-                  <p className="text-xs text-muted-foreground">
-                    Available 7 days a week · Response within 1 hour
+                  <h3 className="font-display text-2xl font-bold text-foreground mb-1">
+                    Shekhar Beura
+                  </h3>
+                  <p className="text-primary text-sm font-semibold mb-1 tracking-wide">
+                    Dubai Real Estate Advisor
                   </p>
+                  <p className="text-muted-foreground text-xs mb-4 tracking-wide uppercase">
+                    Altira Aura Real Estate
+                  </p>
+                  <p className="text-muted-foreground text-sm mb-6">
+                    In Dubai since 2012 · From Bhubaneswar, one of you
+                  </p>
+
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    Just a real conversation to help you make the right call.
+                    Happy to connect 1:1.
+                  </p>
+                </div>
+
+                {/* Right: Contact details */}
+                <div className="space-y-5 pt-16 md:pt-12">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center flex-shrink-0">
+                      <Phone className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">WhatsApp / Call</p>
+                      <p className="text-foreground text-lg font-bold font-display tracking-wide">
+                        +971 56 951 0061
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center flex-shrink-0">
+                      <Mail className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Email</p>
+                      <p className="text-foreground text-sm font-medium">
+                        shekhar@altiraaura.com
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center flex-shrink-0">
+                      <MapPin className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Office</p>
+                      <p className="text-foreground text-sm">
+                        2007, Grosvenor Business Tower,
+                        <br />
+                        Barsha Heights, Dubai, UAE
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="pt-4 border-t border-border">
+                    <p className="text-xs text-muted-foreground">
+                      Available 7 days a week · Response within 1 hour
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -112,9 +132,14 @@ const ContactCTA = () => {
       {/* Footer */}
       <div className="mt-20 border-t border-border pt-8">
         <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <span className="font-display text-sm text-muted-foreground">
-            Shekhar Beura · Dubai Real Estate Advisor
-          </span>
+          <div>
+            <span className="font-display text-sm text-foreground font-semibold">
+              Shekhar Beura
+            </span>
+            <span className="text-muted-foreground text-sm ml-2">
+              · Altira Aura Real Estate
+            </span>
+          </div>
           <p className="text-xs text-muted-foreground">
             © {new Date().getFullYear()} All rights reserved.
           </p>

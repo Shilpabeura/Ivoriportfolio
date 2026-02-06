@@ -24,8 +24,8 @@ const Navbar = () => {
             <h1 className="font-display text-xl font-bold text-foreground tracking-wide">
               Shekhar Beura
             </h1>
-            <p className="text-xs text-muted-foreground tracking-widest uppercase">
-              Dubai Real Estate Advisor
+            <p className="text-[10px] text-muted-foreground tracking-[0.2em] uppercase">
+              Altira Aura Real Estate
             </p>
           </div>
         </div>
