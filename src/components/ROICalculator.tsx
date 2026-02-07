@@ -5,7 +5,7 @@ import { Info, TrendingUp, Calculator } from "lucide-react";
 type PaymentPlan = "60/40" | "70/30" | "100";
 
 const ASSUMPTIONS = {
-  appreciationAtHandover: 0.5, // 50% based on last 5 year trend
+  offPlanAppreciationPerYear: 0.15, // ~50% over 3 years (based on last 5 year trend)
   postHandoverAppreciation: 0.05, // 5% PA
   rentalYield: 0.07, // 7%
   dldFee: 0.04, // 4% DLD for all properties
@@ -40,18 +40,15 @@ const ROICalculator = () => {
         let propValue: number;
         let rentalIncome: number;
 
-        if (y === 0) {
-          propValue = propertyValue;
-          rentalIncome = isReady ? propertyValue * ASSUMPTIONS.rentalYield : 0;
-        } else if (y <= 3 && !isReady) {
-          // Off-plan: appreciation at handover spread over 3 years + post-handover
-          const handoverAppPerYear = ASSUMPTIONS.appreciationAtHandover / 3;
-          propValue = propertyValue * Math.pow(1 + handoverAppPerYear, y);
-          rentalIncome = 0; // No rental during construction
-        } else {
-          // Ready property: post-handover appreciation
+        if (isReady) {
+          // Ready property: 5% PA compound appreciation + 7% rental yield
           propValue = propertyValue * Math.pow(1 + ASSUMPTIONS.postHandoverAppreciation, y);
-          rentalIncome = propValue * ASSUMPTIONS.rentalYield;
+          // Rental collected for Y0 to Y2 (exit at Y3, no rental collected that year)
+          rentalIncome = y < 3 ? propValue * ASSUMPTIONS.rentalYield : 0;
+        } else {
+          // Off-plan: 15% PA compound appreciation (~50% over 3 years based on last 5 year trend)
+          propValue = propertyValue * Math.pow(1 + ASSUMPTIONS.offPlanAppreciationPerYear, y);
+          rentalIncome = 0; // No rental during construction
         }
 
         years.push({
@@ -102,7 +99,7 @@ const ROICalculator = () => {
             ROI Comparison — <span className="text-gradient-gold">3 Years Period</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Scenario: Exit during handover · Adjust property value to see your potential returns
+            Scenario: Exit during handover · Based on last 5 year trend · Adjust property value to see your potential returns
           </p>
         </motion.div>
 

@@ -67,14 +67,6 @@ const ContactCTA = () => {
                   <p className="text-muted-foreground text-xs mb-4 tracking-wide uppercase">
                     Altira Aura Real Estate
                   </p>
-                  <p className="text-muted-foreground text-sm mb-6">
-                    In Dubai since 2012 · From Bhubaneswar, one of you
-                  </p>
-
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    Just a real conversation to help you make the right call.
-                    Happy to connect 1:1.
-                  </p>
                 </div>
 
                 {/* Right: Contact details */}
@@ -117,11 +109,6 @@ const ContactCTA = () => {
                     </div>
                   </div>
 
-                  <div className="pt-4 border-t border-border">
-                    <p className="text-xs text-muted-foreground">
-                      Available 7 days a week · Response within 1 hour
-                    </p>
-                  </div>
                 </div>
               </div>
             </div>
