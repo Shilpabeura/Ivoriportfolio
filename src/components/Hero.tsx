@@ -96,7 +96,7 @@ const Hero = () => {
             >
               <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Avg. ROI</p>
               <p className="font-display text-3xl font-bold text-gradient-gold">50%+</p>
-              <p className="text-xs text-muted-foreground mt-1">At handover (3 yr)</p>
+              <p className="text-xs text-muted-foreground mt-1">Based on last 5 year trend</p>
             </motion.div>
           </motion.div>
         </div>
