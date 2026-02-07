@@ -10,6 +10,7 @@ const ASSUMPTIONS = {
   rentalYield: 0.07, // 7%
   dldFee: 0.04, // 4% DLD for all properties
   brokerageReady: 0.02, // 2% brokerage for ready property
+  offPlanExitCostPct: 0.30, // 30% developer remaining share factored at exit
 };
 
 const formatCurrency = (value: number) =>
@@ -60,8 +61,20 @@ const ROICalculator = () => {
 
       const finalValue = years[3].propertyValue;
       const totalRental = years.reduce((sum, y) => sum + y.rentalIncome, 0);
-      const capitalAppreciation = finalValue - propertyValue;
-      const netProfit = capitalAppreciation + totalRental;
+
+      let capitalAppreciation: number;
+      let netProfit: number;
+
+      if (isReady) {
+        capitalAppreciation = finalValue - propertyValue;
+        netProfit = capitalAppreciation + totalRental;
+      } else {
+        // Off-plan exit (assignment): accounts for exit cost structure
+        const exitCost = ASSUMPTIONS.offPlanExitCostPct * propertyValue;
+        netProfit = finalValue - totalPayment - exitCost;
+        capitalAppreciation = netProfit; // No rental for off-plan
+      }
+
       const roi = (netProfit / totalPayment) * 100;
 
       return {
