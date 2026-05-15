@@ -17,6 +17,7 @@ const formatCurrency = (value: number) =>
 const ROICalculator = () => {
   const [propertyValue, setPropertyValue] = useState(1000000);
   const [selectedPlan, setSelectedPlan] = useState<PlanKey>("60/40");
+  const [horizon, setHorizon] = useState<3 | 5>(5);
   const [cfg, setCfg] = useState<ROIConfig | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -28,8 +29,8 @@ const ROICalculator = () => {
 
   const calculations = useMemo(() => {
     if (!cfg) return [];
-    return cfg.plans.map((p) => computePlan(cfg, propertyValue, p));
-  }, [cfg, propertyValue]);
+    return cfg.plans.map((p) => computePlan(cfg, propertyValue, p, horizon));
+  }, [cfg, propertyValue, horizon]);
 
   const selectedCalc = calculations.find((c) => c.plan === selectedPlan);
 
@@ -69,7 +70,7 @@ const ROICalculator = () => {
             Interactive Analysis
           </p>
           <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-6">
-            ROI Comparison — <span className="text-gradient-gold">{cfg.horizonYears} Year Horizon</span>
+            ROI Comparison — <span className="text-gradient-gold">{horizon} Year Horizon</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Off-plan vs Ready · Numbers driven by an editable Excel source · Adjust property value to model your scenario
@@ -83,6 +84,25 @@ const ROICalculator = () => {
             Download source spreadsheet
           </a>
         </motion.div>
+
+        {/* Horizon Toggle */}
+        <div className="max-w-4xl mx-auto mb-6 flex justify-center">
+          <div className="inline-flex rounded-full border border-border bg-background p-1 shadow-card">
+            {[3, 5].map((h) => (
+              <button
+                key={h}
+                onClick={() => setHorizon(h as 3 | 5)}
+                className={`px-6 py-2 rounded-full text-xs font-semibold uppercase tracking-[0.2em] transition-all duration-300 ${
+                  horizon === h
+                    ? "bg-gradient-gold text-primary-foreground shadow-gold"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {h} Year View
+              </button>
+            ))}
+          </div>
+        </div>
 
         {/* Property Value Slider */}
         <motion.div
