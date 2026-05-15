@@ -73,16 +73,8 @@ const ROICalculator = () => {
             ROI Comparison — <span className="text-gradient-gold">{horizon} Year Horizon</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Off-plan vs Ready · Numbers driven by an editable Excel source · Adjust property value to model your scenario
+            Off-plan vs Ready · Based on Dubai industry data · Adjust property value to model your scenario
           </p>
-          <a
-            href={cfg.sourceFile}
-            download
-            className="inline-flex items-center gap-2 mt-4 text-xs uppercase tracking-[0.3em] text-primary hover:text-primary/80 transition-colors"
-          >
-            <FileSpreadsheet className="w-4 h-4" />
-            Download source spreadsheet
-          </a>
         </motion.div>
 
         {/* Horizon Toggle */}
