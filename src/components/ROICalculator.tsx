@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { Info, TrendingUp, Calculator, FileSpreadsheet } from "lucide-react";
+import { Info, TrendingUp, Calculator, ChevronDown } from "lucide-react";
 import {
   loadROIConfig,
   computePlan,
