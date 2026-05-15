@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { Info, TrendingUp, Calculator, FileSpreadsheet } from "lucide-react";
+import { Info, TrendingUp, Calculator, ChevronDown } from "lucide-react";
 import {
   loadROIConfig,
   computePlan,
@@ -73,16 +73,8 @@ const ROICalculator = () => {
             ROI Comparison — <span className="text-gradient-gold">{horizon} Year Horizon</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Off-plan vs Ready · Numbers driven by an editable Excel source · Adjust property value to model your scenario
+            Off-plan vs Ready · Based on Dubai industry data · Adjust property value to model your scenario
           </p>
-          <a
-            href={cfg.sourceFile}
-            download
-            className="inline-flex items-center gap-2 mt-4 text-xs uppercase tracking-[0.3em] text-primary hover:text-primary/80 transition-colors"
-          >
-            <FileSpreadsheet className="w-4 h-4" />
-            Download source spreadsheet
-          </a>
         </motion.div>
 
         {/* Horizon Toggle */}
@@ -305,29 +297,39 @@ const ROICalculator = () => {
           </div>
         </motion.div>
 
-        {/* Assumptions (from xlsx) */}
+        {/* Assumptions (crisp, collapsible) */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="max-w-6xl mx-auto"
         >
-          <div className="bg-secondary/50 rounded-xl p-6 border border-border">
-            <div className="flex items-center gap-2 mb-4">
-              <Info className="w-4 h-4 text-primary" />
-              <h4 className="font-display text-sm font-semibold text-foreground uppercase tracking-wider">
-                Assumptions (sourced from spreadsheet)
-              </h4>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-              {cfg.rawAssumptions.map((a, i) => (
+          <details className="group bg-secondary/50 rounded-xl border border-border overflow-hidden">
+            <summary className="flex items-center justify-between gap-3 p-5 cursor-pointer list-none">
+              <div className="flex items-center gap-2">
+                <Info className="w-4 h-4 text-primary" />
+                <h4 className="font-display text-sm font-semibold text-foreground uppercase tracking-wider">
+                  Key Assumptions
+                </h4>
+              </div>
+              <ChevronDown className="w-4 h-4 text-muted-foreground transition-transform duration-300 group-open:rotate-180" />
+            </summary>
+            <div className="px-5 pb-5 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2">
+              {[
+                `Capital appreciation — Off-plan ${(cfg.offPlanGrowth * 100).toFixed(0)}% p.a. till handover, ${(cfg.readyGrowth * 100).toFixed(0)}% p.a. thereafter`,
+                `Ready property appreciation — ${(cfg.readyGrowth * 100).toFixed(0)}% p.a. compounded`,
+                `Rental yield — ${(cfg.readyYield * 100).toFixed(0)}% on ready, off-plan rental starts post-handover (Year 3)`,
+                `Transaction costs — ${(cfg.dldOffPlan * 100).toFixed(0)}% DLD off-plan · ${(cfg.dldReady * 100).toFixed(0)}% DLD ready (paid upfront)`,
+                `Investment horizon — ${horizon} years, exit at projected market value`,
+                `Returns based on last 5-year Dubai market trends; no distress sale discount applied`,
+              ].map((a, i) => (
                 <div key={i} className="flex items-start gap-2">
                   <div className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
                   <p className="text-xs text-muted-foreground leading-relaxed">{a}</p>
                 </div>
               ))}
             </div>
-          </div>
+          </details>
         </motion.div>
       </div>
     </section>
