@@ -17,6 +17,7 @@ const formatCurrency = (value: number) =>
 const ROICalculator = () => {
   const [propertyValue, setPropertyValue] = useState(1000000);
   const [selectedPlan, setSelectedPlan] = useState<PlanKey>("60/40");
+  const [horizon, setHorizon] = useState<3 | 5>(5);
   const [cfg, setCfg] = useState<ROIConfig | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -28,8 +29,8 @@ const ROICalculator = () => {
 
   const calculations = useMemo(() => {
     if (!cfg) return [];
-    return cfg.plans.map((p) => computePlan(cfg, propertyValue, p));
-  }, [cfg, propertyValue]);
+    return cfg.plans.map((p) => computePlan(cfg, propertyValue, p, horizon));
+  }, [cfg, propertyValue, horizon]);
 
   const selectedCalc = calculations.find((c) => c.plan === selectedPlan);
 
