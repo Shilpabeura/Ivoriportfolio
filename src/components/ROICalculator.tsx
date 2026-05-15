@@ -1,17 +1,12 @@
-import { useState, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { Info, TrendingUp, Calculator } from "lucide-react";
-
-type PaymentPlan = "60/40" | "70/30" | "100";
-
-const ASSUMPTIONS = {
-  offPlanAppreciationPerYear: 0.15, // ~50% over 3 years (based on last 5 year trend)
-  postHandoverAppreciation: 0.05, // 5% PA
-  rentalYield: 0.07, // 7%
-  dldFee: 0.04, // 4% DLD for all properties
-  brokerageReady: 0.02, // 2% brokerage for ready property
-  offPlanExitCostPct: 0.30, // 30% developer remaining share factored at exit
-};
+import { Info, TrendingUp, Calculator, FileSpreadsheet } from "lucide-react";
+import {
+  loadROIConfig,
+  computePlan,
+  type ROIConfig,
+  type PlanKey,
+} from "@/lib/roiSource";
 
 const formatCurrency = (value: number) =>
   new Intl.NumberFormat("en-AE", {
@@ -21,77 +16,42 @@ const formatCurrency = (value: number) =>
 
 const ROICalculator = () => {
   const [propertyValue, setPropertyValue] = useState(1000000);
-  const [selectedPlan, setSelectedPlan] = useState<PaymentPlan>("60/40");
+  const [selectedPlan, setSelectedPlan] = useState<PlanKey>("60/40");
+  const [cfg, setCfg] = useState<ROIConfig | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  const paymentPlans: { plan: PaymentPlan; label: string; pct: number }[] = [
-    { plan: "60/40", label: "Off-Plan 60/40", pct: 0.6 },
-    { plan: "70/30", label: "Off-Plan 70/30", pct: 0.7 },
-    { plan: "100", label: "Ready Property", pct: 1.0 },
-  ];
+  useEffect(() => {
+    loadROIConfig()
+      .then(setCfg)
+      .catch((e) => setError(e.message ?? String(e)));
+  }, []);
 
   const calculations = useMemo(() => {
-    const plans = paymentPlans.map(({ plan, pct }) => {
-      const isReady = plan === "100";
-      const totalPaymentPct = pct + ASSUMPTIONS.dldFee + (isReady ? ASSUMPTIONS.brokerageReady : 0);
-      const totalPayment = propertyValue * totalPaymentPct;
+    if (!cfg) return [];
+    return cfg.plans.map((p) => computePlan(cfg, propertyValue, p));
+  }, [cfg, propertyValue]);
 
-      // Year-by-year property values
-      const years = [];
-      for (let y = 0; y <= 3; y++) {
-        let propValue: number;
-        let rentalIncome: number;
+  const selectedCalc = calculations.find((c) => c.plan === selectedPlan);
 
-        if (isReady) {
-          // Ready property: 5% PA compound appreciation + 7% rental yield
-          propValue = propertyValue * Math.pow(1 + ASSUMPTIONS.postHandoverAppreciation, y);
-          // Rental collected for Y0 to Y2 (exit at Y3, no rental collected that year)
-          rentalIncome = y < 3 ? propValue * ASSUMPTIONS.rentalYield : 0;
-        } else {
-          // Off-plan: 15% PA compound appreciation (~50% over 3 years based on last 5 year trend)
-          propValue = propertyValue * Math.pow(1 + ASSUMPTIONS.offPlanAppreciationPerYear, y);
-          rentalIncome = 0; // No rental during construction
-        }
+  if (error) {
+    return (
+      <section id="roi" className="py-24 bg-section-alt">
+        <div className="container mx-auto px-6 text-center text-destructive">
+          Failed to load ROI source: {error}
+        </div>
+      </section>
+    );
+  }
 
-        years.push({
-          year: y,
-          propertyValue: propValue,
-          rentalIncome,
-        });
-      }
-
-      const finalValue = years[3].propertyValue;
-      const totalRental = years.reduce((sum, y) => sum + y.rentalIncome, 0);
-
-      let capitalAppreciation: number;
-      let netProfit: number;
-
-      if (isReady) {
-        capitalAppreciation = finalValue - propertyValue;
-        netProfit = capitalAppreciation + totalRental;
-      } else {
-        // Off-plan exit (assignment): accounts for exit cost structure
-        const exitCost = ASSUMPTIONS.offPlanExitCostPct * propertyValue;
-        netProfit = finalValue - totalPayment - exitCost;
-        capitalAppreciation = netProfit; // No rental for off-plan
-      }
-
-      const roi = (netProfit / totalPayment) * 100;
-
-      return {
-        plan,
-        totalPayment,
-        capitalAppreciation,
-        rentalIncome: totalRental,
-        netProfit,
-        roi,
-        years,
-      };
-    });
-
-    return plans;
-  }, [propertyValue]);
-
-  const selectedCalc = calculations.find((c) => c.plan === selectedPlan)!;
+  if (!cfg || !selectedCalc) {
+    return (
+      <section id="roi" className="py-24 bg-section-alt">
+        <div className="container mx-auto px-6 text-center text-muted-foreground">
+          Loading ROI model…
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="roi" className="py-24 md:py-32 bg-section-alt relative overflow-hidden">
@@ -109,11 +69,19 @@ const ROICalculator = () => {
             Interactive Analysis
           </p>
           <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-6">
-            ROI Comparison — <span className="text-gradient-gold">3 Years Period</span>
+            ROI Comparison — <span className="text-gradient-gold">{cfg.horizonYears} Year Horizon</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Scenario: Exit during handover · Based on last 5 year trend · Adjust property value to see your potential returns
+            Off-plan vs Ready · Numbers driven by an editable Excel source · Adjust property value to model your scenario
           </p>
+          <a
+            href={cfg.sourceFile}
+            download
+            className="inline-flex items-center gap-2 mt-4 text-xs uppercase tracking-[0.3em] text-primary hover:text-primary/80 transition-colors"
+          >
+            <FileSpreadsheet className="w-4 h-4" />
+            Download source spreadsheet
+          </a>
         </motion.div>
 
         {/* Property Value Slider */}
@@ -157,17 +125,17 @@ const ROICalculator = () => {
         {/* Payment Plan Tabs */}
         <div className="max-w-6xl mx-auto mb-8">
           <div className="flex flex-wrap gap-3 justify-center">
-            {paymentPlans.map(({ plan, label }) => (
+            {cfg.plans.map((p) => (
               <button
-                key={plan}
-                onClick={() => setSelectedPlan(plan)}
+                key={p.plan}
+                onClick={() => setSelectedPlan(p.plan)}
                 className={`px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 ${
-                  selectedPlan === plan
+                  selectedPlan === p.plan
                     ? "bg-gradient-gold text-primary-foreground shadow-gold"
                     : "bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border"
                 }`}
               >
-                {label}
+                {p.type === "ready" ? "Ready Property" : `Off-Plan ${p.plan}`}
               </button>
             ))}
           </div>
@@ -181,12 +149,13 @@ const ROICalculator = () => {
           transition={{ duration: 0.4 }}
           className="max-w-6xl mx-auto mb-10"
         >
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
             {[
-              { label: "Total Payment", value: `AED ${formatCurrency(selectedCalc.totalPayment)}`, highlight: false },
-              { label: "Capital Appreciation", value: `AED ${formatCurrency(selectedCalc.capitalAppreciation)}`, highlight: false },
-              { label: "Rental Income", value: `AED ${formatCurrency(selectedCalc.rentalIncome)}`, highlight: false },
-              { label: "ROI", value: `${selectedCalc.roi.toFixed(0)}%`, highlight: true },
+              { label: "Total Invested", value: `AED ${formatCurrency(selectedCalc.totalInvested)}`, highlight: false },
+              { label: `Total Inflow (${cfg.horizonYears}Y)`, value: `AED ${formatCurrency(selectedCalc.totalInflow)}`, highlight: false },
+              { label: "Rental Income", value: `AED ${formatCurrency(selectedCalc.totalRental)}`, highlight: false },
+              { label: "Net Profit", value: `AED ${formatCurrency(selectedCalc.netProfit)}`, highlight: false },
+              { label: "ROI", value: `${selectedCalc.roi.toFixed(0)}%`, highlight: true, sub: selectedCalc.irr ? `IRR ${selectedCalc.irr}` : undefined },
             ].map((item) => (
                <div
                  key={item.label}
@@ -206,6 +175,9 @@ const ROICalculator = () => {
                 >
                   {item.value}
                 </p>
+                {item.sub && (
+                  <p className="text-[10px] mt-1 uppercase tracking-wider text-muted-foreground">{item.sub}</p>
+                )}
               </div>
             ))}
           </div>
@@ -223,66 +195,49 @@ const ROICalculator = () => {
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-border">
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                    <th className="px-4 py-4 text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                       Metric
                     </th>
-                    {paymentPlans.map(({ plan, label }) => (
+                    {cfg.plans.map((p) => (
                       <th
-                        key={plan}
-                        className={`px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider ${
-                          selectedPlan === plan ? "text-primary" : "text-muted-foreground"
+                        key={p.plan}
+                        className={`px-4 py-4 text-right text-xs font-semibold uppercase tracking-wider whitespace-nowrap ${
+                          selectedPlan === p.plan ? "text-primary" : "text-muted-foreground"
                         }`}
                       >
-                        {label}
+                        {p.type === "ready" ? "Ready" : p.plan}
                       </th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
                   {[
-                    {
-                      label: "Total Payment",
-                      values: calculations.map((c) => `AED ${formatCurrency(c.totalPayment)}`),
-                    },
-                    {
-                      label: "Capital Appreciation",
-                      values: calculations.map((c) => `AED ${formatCurrency(c.capitalAppreciation)}`),
-                    },
-                    {
-                      label: "Rental Income",
-                      values: calculations.map((c) => `AED ${formatCurrency(c.rentalIncome)}`),
-                    },
-                    {
-                      label: "Net Profit",
-                      values: calculations.map((c) => `AED ${formatCurrency(c.netProfit)}`),
-                    },
-                    {
-                      label: "ROI",
-                      values: calculations.map((c) => `${c.roi.toFixed(0)}%`),
-                      isBold: true,
-                    },
-                  ].map((row, rowIdx) => (
+                    { label: "Total Invested", get: (c: typeof calculations[number]) => `AED ${formatCurrency(c.totalInvested)}` },
+                    { label: `Total Inflow (${cfg.horizonYears}Y)`, get: (c: typeof calculations[number]) => `AED ${formatCurrency(c.totalInflow)}` },
+                    { label: "Rental Income", get: (c: typeof calculations[number]) => `AED ${formatCurrency(c.totalRental)}` },
+                    { label: "Net Profit", get: (c: typeof calculations[number]) => `AED ${formatCurrency(c.netProfit)}` },
+                    { label: "ROI", get: (c: typeof calculations[number]) => `${c.roi.toFixed(0)}%`, isBold: true },
+                    { label: "IRR (est.)", get: (c: typeof calculations[number]) => c.irr || "—" },
+                  ].map((row) => (
                     <tr
                       key={row.label}
-                      className={`border-b border-border/50 ${
-                        row.isBold ? "bg-primary/5" : ""
-                      }`}
+                      className={`border-b border-border/50 ${row.isBold ? "bg-primary/5" : ""}`}
                     >
-                      <td className="px-6 py-4 text-sm font-medium text-foreground">
+                      <td className="px-4 py-4 text-sm font-medium text-foreground whitespace-nowrap">
                         {row.label}
                       </td>
-                      {row.values.map((val, i) => (
+                      {calculations.map((c) => (
                         <td
-                          key={i}
-                          className={`px-6 py-4 text-sm text-right ${
+                          key={c.plan}
+                          className={`px-4 py-4 text-sm text-right whitespace-nowrap ${
                             row.isBold
-                              ? "font-bold text-primary text-lg"
-                              : selectedPlan === paymentPlans[i].plan
+                              ? "font-bold text-primary text-base"
+                              : selectedPlan === c.plan
                               ? "text-foreground font-medium"
                               : "text-muted-foreground"
                           }`}
                         >
-                          {val}
+                          {row.get(c)}
                         </td>
                       ))}
                     </tr>
@@ -302,38 +257,26 @@ const ROICalculator = () => {
         >
           <h3 className="font-display text-xl font-semibold text-foreground mb-4 flex items-center gap-2">
             <TrendingUp className="w-5 h-5 text-primary" />
-            Year-by-Year Breakdown ({paymentPlans.find((p) => p.plan === selectedPlan)?.label})
+            Year-by-Year Breakdown ({selectedCalc.type === "ready" ? "Ready Property" : `Off-Plan ${selectedCalc.plan}`})
           </h3>
           <div className="bg-background rounded-xl border border-border shadow-card overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-border">
-                    <th className="px-6 py-4 text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                      Year
-                    </th>
-                    <th className="px-6 py-4 text-right text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                      Property Value (AED)
-                    </th>
-                    <th className="px-6 py-4 text-right text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                      Rental Income (AED)
-                    </th>
+                    <th className="px-4 py-4 text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider">Year</th>
+                    <th className="px-4 py-4 text-right text-xs font-semibold text-muted-foreground uppercase tracking-wider">Property Value (AED)</th>
+                    <th className="px-4 py-4 text-right text-xs font-semibold text-muted-foreground uppercase tracking-wider">Payment Due (AED)</th>
+                    <th className="px-4 py-4 text-right text-xs font-semibold text-muted-foreground uppercase tracking-wider">Rental Income (AED)</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {selectedCalc.years.map((yearData) => (
-                    <tr key={yearData.year} className="border-b border-border/50">
-                      <td className="px-6 py-4 text-sm font-medium text-foreground">
-                        Year {yearData.year}
-                      </td>
-                      <td className="px-6 py-4 text-sm text-right text-foreground">
-                        {formatCurrency(yearData.propertyValue)}
-                      </td>
-                      <td className="px-6 py-4 text-sm text-right text-muted-foreground">
-                        {yearData.rentalIncome > 0
-                          ? formatCurrency(yearData.rentalIncome)
-                          : "—"}
-                      </td>
+                  {selectedCalc.years.map((y) => (
+                    <tr key={y.year} className="border-b border-border/50">
+                      <td className="px-4 py-4 text-sm font-medium text-foreground">Year {y.year}</td>
+                      <td className="px-4 py-4 text-sm text-right text-foreground">{formatCurrency(y.propertyValue)}</td>
+                      <td className="px-4 py-4 text-sm text-right text-muted-foreground">{y.paymentDue > 0 ? formatCurrency(y.paymentDue) : "—"}</td>
+                      <td className="px-4 py-4 text-sm text-right text-muted-foreground">{y.rentalIncome > 0 ? formatCurrency(y.rentalIncome) : "—"}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -342,7 +285,7 @@ const ROICalculator = () => {
           </div>
         </motion.div>
 
-        {/* Assumptions */}
+        {/* Assumptions (from xlsx) */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -353,21 +296,14 @@ const ROICalculator = () => {
             <div className="flex items-center gap-2 mb-4">
               <Info className="w-4 h-4 text-primary" />
               <h4 className="font-display text-sm font-semibold text-foreground uppercase tracking-wider">
-                Assumptions
+                Assumptions (sourced from spreadsheet)
               </h4>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {[
-                "Appreciation at Handover — 50% (based on last 5 year trend)",
-                "Post-Handover Appreciation — 5% PA",
-                "Rental Yield — 7%",
-                "Total Payment includes 4% DLD for all properties & 2% brokerage charge for ready property",
-              ].map((assumption) => (
-                <div key={assumption} className="flex items-start gap-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+              {cfg.rawAssumptions.map((a, i) => (
+                <div key={i} className="flex items-start gap-2">
                   <div className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    {assumption}
-                  </p>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{a}</p>
                 </div>
               ))}
             </div>
