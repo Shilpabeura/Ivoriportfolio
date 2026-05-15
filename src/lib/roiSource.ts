@@ -124,8 +124,13 @@ export interface PlanResult {
   years: YearRow[];
 }
 
-export function computePlan(cfg: ROIConfig, propertyValue: number, plan: PlanConfig): PlanResult {
-  const H = cfg.horizonYears;
+export function computePlan(
+  cfg: ROIConfig,
+  propertyValue: number,
+  plan: PlanConfig,
+  horizonOverride?: number,
+): PlanResult {
+  const H = horizonOverride ?? cfg.horizonYears;
   const years: YearRow[] = [];
 
   if (plan.type === "off-plan") {
