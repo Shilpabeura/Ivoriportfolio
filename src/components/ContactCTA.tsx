@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Phone, Mail, MapPin } from "lucide-react";
+import { Phone, Mail } from "lucide-react";
 import shekharPhoto from "@/assets/shekhar-profile.jpg";
 import dubaiHero from "@/assets/dubai-hero.jpg";
 
@@ -61,11 +61,8 @@ const ContactCTA = () => {
                   <h3 className="font-display text-2xl font-bold text-foreground mb-1">
                     Shekhar Beura
                   </h3>
-                  <p className="text-primary text-sm font-semibold mb-1 tracking-wide">
-                    Dubai Real Estate Advisor
-                  </p>
-                  <p className="text-muted-foreground text-xs mb-4 tracking-wide uppercase">
-                    Altira Aura Real Estate
+                  <p className="text-primary text-sm font-semibold mb-4 tracking-wide">
+                    Real Estate Advisor
                   </p>
                 </div>
 
@@ -90,21 +87,7 @@ const ContactCTA = () => {
                     <div>
                       <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Email</p>
                       <p className="text-foreground text-sm font-medium">
-                        shekhar@altiraaura.com
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center flex-shrink-0">
-                      <MapPin className="w-5 h-5 text-primary" />
-                    </div>
-                    <div>
-                      <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Office</p>
-                      <p className="text-foreground text-sm">
-                        2007, Grosvenor Business Tower,
-                        <br />
-                        Barsha Heights, Dubai, UAE
+                        beura.shekhar@gmail.com
                       </p>
                     </div>
                   </div>
@@ -124,7 +107,7 @@ const ContactCTA = () => {
               Shekhar Beura
             </span>
             <span className="text-muted-foreground text-sm ml-2">
-              · Altira Aura Real Estate
+              · Real Estate Advisor
             </span>
           </div>
           <p className="text-xs text-muted-foreground">
