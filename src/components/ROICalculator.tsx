@@ -164,7 +164,7 @@ const ROICalculator = () => {
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
             {[
               { label: "Total Invested", value: `AED ${formatCurrency(selectedCalc.totalInvested)}`, highlight: false },
-              { label: `Total Inflow (${cfg.horizonYears}Y)`, value: `AED ${formatCurrency(selectedCalc.totalInflow)}`, highlight: false },
+              { label: `Total Inflow (${horizon}Y)`, value: `AED ${formatCurrency(selectedCalc.totalInflow)}`, highlight: false },
               { label: "Rental Income", value: `AED ${formatCurrency(selectedCalc.totalRental)}`, highlight: false },
               { label: "Net Profit", value: `AED ${formatCurrency(selectedCalc.netProfit)}`, highlight: false },
               { label: "ROI", value: `${selectedCalc.roi.toFixed(0)}%`, highlight: true, sub: selectedCalc.irr ? `IRR ${selectedCalc.irr}` : undefined },
@@ -225,7 +225,7 @@ const ROICalculator = () => {
                 <tbody>
                   {[
                     { label: "Total Invested", get: (c: typeof calculations[number]) => `AED ${formatCurrency(c.totalInvested)}` },
-                    { label: `Total Inflow (${cfg.horizonYears}Y)`, get: (c: typeof calculations[number]) => `AED ${formatCurrency(c.totalInflow)}` },
+                    { label: `Total Inflow (${horizon}Y)`, get: (c: typeof calculations[number]) => `AED ${formatCurrency(c.totalInflow)}` },
                     { label: "Rental Income", get: (c: typeof calculations[number]) => `AED ${formatCurrency(c.totalRental)}` },
                     { label: "Net Profit", get: (c: typeof calculations[number]) => `AED ${formatCurrency(c.netProfit)}` },
                     { label: "ROI", get: (c: typeof calculations[number]) => `${c.roi.toFixed(0)}%`, isBold: true },
