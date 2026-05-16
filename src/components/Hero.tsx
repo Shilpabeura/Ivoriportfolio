@@ -65,7 +65,7 @@ const Hero = () => {
                   Shekhar Beura
                 </p>
                 <p className="text-xs text-muted-foreground tracking-wide">
-                  Altira Aura Real Estate · In Dubai since 2012
+                  Real Estate Advisor
                 </p>
               </div>
             </div>
