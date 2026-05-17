@@ -68,17 +68,23 @@ const ContactCTA = () => {
 
                 {/* Right: Contact details */}
                 <div className="space-y-5 pt-16 md:pt-12">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center flex-shrink-0">
-                      <Phone className="w-5 h-5 text-primary" />
+                  <a
+                    href="https://wa.me/971569510061"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Chat with Shekhar on WhatsApp"
+                    className="group flex items-center gap-4 p-3 -m-3 rounded-xl hover:bg-muted/60 transition-all cursor-pointer"
+                  >
+                    <div className="w-12 h-12 rounded-xl bg-gradient-gold flex items-center justify-center flex-shrink-0 shadow-gold group-hover:scale-105 transition-transform">
+                      <Phone className="w-5 h-5 text-primary-foreground" />
                     </div>
                     <div>
-                      <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">WhatsApp / Call</p>
-                      <p className="text-foreground text-lg font-bold font-display tracking-wide">
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">WhatsApp · Tap to chat</p>
+                      <p className="text-foreground text-lg font-bold font-display tracking-wide group-hover:text-primary transition-colors">
                         +971 56 951 0061
                       </p>
                     </div>
-                  </div>
+                  </a>
 
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center flex-shrink-0">
