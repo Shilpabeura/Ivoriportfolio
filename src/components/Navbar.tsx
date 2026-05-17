@@ -40,6 +40,9 @@ const Navbar = () => {
           <a href="#roi" className="text-sm text-muted-foreground hover:text-primary transition-colors">
             ROI Calculator
           </a>
+          <a href="#markets" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+            Markets
+          </a>
           <a href="#contact" className="text-sm text-muted-foreground hover:text-primary transition-colors">
             Contact
           </a>
