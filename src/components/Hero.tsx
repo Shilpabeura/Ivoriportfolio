@@ -26,16 +26,16 @@ const Hero = () => {
             </p>
 
             <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-[1.1] mb-6">
-              Dubai's Real Estate
+              The Smart Money Is
               <br />
-              <span className="text-gradient-gold">Bull Run Is Here</span>
+              <span className="text-gradient-gold">Moving to Dubai</span>
             </h1>
 
             <p className="text-muted-foreground text-lg md:text-xl max-w-xl mb-4 font-light leading-relaxed">
-              Don't watch it from the sidelines — profit from it.
+              Don't just follow the trend — invest with confidence.
             </p>
             <p className="text-foreground text-lg max-w-xl mb-10 font-medium">
-              An investor-focused perspective on what works, what delivers, and how to invest with clarity.
+              An investor-focused perspective on market opportunities, payment plans, and how to invest with clarity.
             </p>
 
             <div className="flex flex-col sm:flex-row items-start gap-4 mb-12">

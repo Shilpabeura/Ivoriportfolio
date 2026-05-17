@@ -64,14 +64,17 @@ const WhyDifferent = () => {
               Market Intelligence
             </p>
             <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
-              Why This Bull Run Is{" "}
-              <span className="text-gradient-gold">Different</span>
+              Why Dubai Continues to{" "}
+              <span className="text-gradient-gold">Outperform Global Markets</span>
             </h2>
-            <p className="text-muted-foreground text-lg leading-relaxed mb-2">
+            <p className="text-muted-foreground text-lg leading-relaxed mb-3">
               Dubai isn't just growing — it's accelerating.
             </p>
+            <p className="text-muted-foreground text-base leading-relaxed mb-3">
+              This is not driven by short-term sentiment or speculation. It reflects deeper structural strength built on long-term planning, global capital inflows, and sustained end-user demand.
+            </p>
             <p className="text-foreground text-lg font-medium">
-              This isn't hype. It's fundamentals.
+              This is not hype. It's fundamentals.
             </p>
           </motion.div>
         </div>
