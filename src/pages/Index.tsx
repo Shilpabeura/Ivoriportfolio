@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import WhyDifferent from "@/components/WhyDifferent";
 import InvestorBenefits from "@/components/InvestorBenefits";
 import ROICalculator from "@/components/ROICalculator";
+import MarketComparison from "@/components/MarketComparison";
 import ContactCTA from "@/components/ContactCTA";
 
 const Index = () => {
@@ -13,6 +14,7 @@ const Index = () => {
       <WhyDifferent />
       <InvestorBenefits />
       <ROICalculator />
+      <MarketComparison />
       <ContactCTA />
     </main>
   );
