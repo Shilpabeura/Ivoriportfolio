@@ -46,10 +46,16 @@ const Navbar = () => {
           <a href="#contact" className="text-sm text-muted-foreground hover:text-primary transition-colors">
             Contact
           </a>
-          <div className="flex items-center gap-2 bg-gradient-gold text-primary-foreground px-5 py-2.5 rounded-full text-sm font-semibold">
+          <a
+            href="https://wa.me/971569510061"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Chat with Shekhar on WhatsApp"
+            className="flex items-center gap-2 bg-gradient-gold text-primary-foreground px-5 py-2.5 rounded-full text-sm font-semibold hover:opacity-90 hover:shadow-gold transition-all cursor-pointer"
+          >
             <Phone className="w-4 h-4" />
             +971 56 951 0061
-          </div>
+          </a>
         </div>
       </div>
     </nav>
