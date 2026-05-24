@@ -208,7 +208,7 @@ const ROICalculator = () => {
                     { label: "Rental Income", get: (c: typeof calculations[number]) => `AED ${formatCurrency(c.totalRental)}` },
                     { label: "Net Profit", get: (c: typeof calculations[number]) => `AED ${formatCurrency(c.netProfit)}` },
                     { label: "ROI", get: (c: typeof calculations[number]) => `${c.roi.toFixed(0)}%`, isBold: true },
-                    { label: "IRR (est.)", get: (c: typeof calculations[number]) => c.irr || "—" },
+                    { label: "IRR (est.)", get: (c: typeof calculations[number]) => c.irr || "—", isBold: true },
                   ].map((row) => (
                     <tr
                       key={row.label}
