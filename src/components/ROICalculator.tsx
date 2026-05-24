@@ -142,13 +142,14 @@ const ROICalculator = () => {
           transition={{ duration: 0.4 }}
           className="max-w-6xl mx-auto mb-10"
         >
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {[
               { label: "Total Invested", value: `AED ${formatCurrency(selectedCalc.totalInvested)}`, highlight: false },
               { label: `Total Inflow (${horizon}Y)`, value: `AED ${formatCurrency(selectedCalc.totalInflow)}`, highlight: false },
               { label: "Rental Income", value: `AED ${formatCurrency(selectedCalc.totalRental)}`, highlight: false },
               { label: "Net Profit", value: `AED ${formatCurrency(selectedCalc.netProfit)}`, highlight: false },
-              { label: "ROI", value: `${selectedCalc.roi.toFixed(0)}%`, highlight: true, sub: selectedCalc.irr ? `IRR ${selectedCalc.irr}` : undefined },
+              { label: "ROI", value: `${selectedCalc.roi.toFixed(0)}%`, highlight: true },
+              { label: "IRR (est.)", value: selectedCalc.irr || "—", highlight: true },
             ].map((item) => (
                <div
                  key={item.label}
@@ -168,9 +169,6 @@ const ROICalculator = () => {
                 >
                   {item.value}
                 </p>
-                {item.sub && (
-                  <p className="text-[10px] mt-1 uppercase tracking-wider text-muted-foreground">{item.sub}</p>
-                )}
               </div>
             ))}
           </div>
