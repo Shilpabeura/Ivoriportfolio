@@ -20,8 +20,8 @@ const benefits = [
   {
     icon: Home,
     title: "Low Entry Off-Plan",
-    description: "Off-plan opportunities with low entry points — start with as little as 60/40 payment plans.",
-    stat: "60/40",
+    description: "Off-plan opportunities with low entry points — start with as little as 40/60 payment plans.",
+    stat: "40/60",
     statLabel: "Payment plan available",
   },
   {
