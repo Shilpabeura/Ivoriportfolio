@@ -118,7 +118,7 @@ const InvestorBenefits = () => {
                 AED 500,000
               </p>
               <p className="text-sm text-muted-foreground mt-1">
-                With flexible 60/40 payment plans
+                With flexible 40/60 payment plans
               </p>
             </div>
           </motion.div>
