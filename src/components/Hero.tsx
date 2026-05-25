@@ -28,7 +28,7 @@ const Hero = () => {
             <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-[1.1] mb-6">
               The Smart Money Is
               <br />
-              <span className="text-gradient-gold">Moving to Dubai</span>
+              <span className="text-gradient-gold">Moving to{"\u00A0"}Dubai</span>
             </h1>
 
             <p className="text-muted-foreground text-lg md:text-xl max-w-xl mb-4 font-light leading-relaxed">
