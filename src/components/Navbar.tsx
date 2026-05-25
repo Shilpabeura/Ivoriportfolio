@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Phone } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
