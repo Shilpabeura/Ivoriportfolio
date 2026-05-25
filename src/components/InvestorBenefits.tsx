@@ -51,8 +51,8 @@ const InvestorBenefits = () => {
                 Investor Advantage
               </p>
               <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
-                What This Means{" "}
-                <span className="text-gradient-gold">For You</span>
+                What This{"\u00A0"}Means{" "}
+                <span className="text-gradient-gold">For{"\u00A0"}You</span>
               </h2>
               <p className="text-muted-foreground text-lg">
                 You don't need millions to start — you need clarity.
