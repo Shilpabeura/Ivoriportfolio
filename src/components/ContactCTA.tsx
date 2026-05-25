@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Phone, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
 import shekharPhoto from "@/assets/shekhar-profile.jpg";
 import dubaiHero from "@/assets/dubai-hero.jpg";
 
