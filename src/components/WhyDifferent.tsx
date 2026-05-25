@@ -65,7 +65,7 @@ const WhyDifferent = () => {
             </p>
             <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
               Why Dubai Continues to{" "}
-              <span className="text-gradient-gold">Outperform Global Markets</span>
+              <span className="text-gradient-gold">Outperform Global{"\u00A0"}Markets</span>
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed mb-3">
               Dubai isn't just growing — it's accelerating.
