@@ -70,7 +70,7 @@ const ROICalculator = () => {
             Interactive Analysis
           </p>
           <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-6">
-            ROI Comparison — <span className="text-gradient-gold">5 Year Horizon</span>
+            ROI Comparison — <span className="text-gradient-gold">5 Year{"\u00A0"}Horizon</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Off-plan vs Ready · Based on Dubai industry data · Adjust property value to model your scenario

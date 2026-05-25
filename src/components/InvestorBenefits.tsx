@@ -20,8 +20,8 @@ const benefits = [
   {
     icon: Home,
     title: "Low Entry Off-Plan",
-    description: "Off-plan opportunities with low entry points — start with as little as 60/40 payment plans.",
-    stat: "60/40",
+    description: "Off-plan opportunities with low entry points — start with as little as 40/60 payment plans.",
+    stat: "40/60",
     statLabel: "Payment plan available",
   },
   {
@@ -51,8 +51,8 @@ const InvestorBenefits = () => {
                 Investor Advantage
               </p>
               <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
-                What This Means{" "}
-                <span className="text-gradient-gold">For You</span>
+                What This{"\u00A0"}Means{" "}
+                <span className="text-gradient-gold">For{"\u00A0"}You</span>
               </h2>
               <p className="text-muted-foreground text-lg">
                 You don't need millions to start — you need clarity.
@@ -118,7 +118,7 @@ const InvestorBenefits = () => {
                 AED 500,000
               </p>
               <p className="text-sm text-muted-foreground mt-1">
-                With flexible 60/40 payment plans
+                With flexible 40/60 payment plans
               </p>
             </div>
           </motion.div>
