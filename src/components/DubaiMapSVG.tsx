@@ -1,4 +1,4 @@
-import { DUBAI_ZONES, TIER_META, type Zone, type Tier } from "@/lib/dubaiZones";
+import { DUBAI_ZONES, type Zone, type Tier } from "@/lib/dubaiZones";
 
 interface Props {
   selectedId: number | null;
