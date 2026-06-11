@@ -1,52 +1,60 @@
-## 1. Fix 3-Year ROI to match the spreadsheet
+## Dubai 2040 Investment Map — Plan
 
-The xlsx has 5-year inflow values, but the year-by-year cells (Year 0–5) are the basis for any horizon. I'll align the 3-year horizon to read straight from the xls's Year-3 cells, using the same rules the xls applies.
+### Placement
+Insert a new `<DubaiInvestmentMap />` section in `src/pages/Index.tsx` between `InvestorBenefits` and `ROICalculator`. Narrative flow becomes: why Dubai → what's in it for you → **where to invest** → model your returns → city comparison → contact.
 
-**`src/lib/roiSource.ts` — `computePlan` changes:**
+### Section structure (on-brand, editorial)
+- Eyebrow: "Dubai 2040 Master Plan"
+- H2 (Playfair): "Where The Smart Money Is Going"
+- Sub (DM Sans, muted): 1–2 lines on growth corridors, urban centers, future value.
+- Two-column layout on desktop (split 60/40), stacked on mobile:
+  - **Left:** Custom minimal SVG map of Dubai (white/grey background, gold accents, soft elevated shadow card) with 10 colored zones.
+  - **Right:** Info panel — when nothing is selected, shows tier legend + short instruction. When a zone is hovered/selected, panel cross-fades to that zone's details.
 
-For off-plan with `horizon = 3`:
-- Property value at exit = `1M × (1 + offPlanGrowth)^3` (= AED 1,404,928 for 1M base) — matches xls `C14`.
-- Rental income = 0. (xls treats Year 3 as handover; rental starts *post-handover*, so a 3-year exit captures no rental years before sale.)
-- Total invested = property + 4% DLD (unchanged).
-- Net profit = exit value − invested. ROI = net / invested.
-- IRR labels: add a second IRR range field per plan for the 3-year case (placeholder strings; you can fine-tune in the xls). For now I'll leave IRR blank when horizon = 3 unless you provide values.
+### SVG map
+- Hand-built abstract SVG (`viewBox` ~ 1000×700) showing Dubai coastline, Palm Jumeirah silhouette, Sheikh Zayed Road line, and 10 zone polygons positioned to match the reference image.
+- Tier colors (semantic tokens added to `index.css`):
+  - Tier 1: warm gold `--tier-1` (primary brand gold)
+  - Tier 2: muted terracotta `--tier-2`
+  - Tier 3: sage/grey-green `--tier-3`
+- Each zone: numbered circular badge (1–10) at centroid, soft fill at ~35% opacity, stronger stroke on hover/selected. Hover scales slightly + raises z-order; selected gets gold ring.
+- Compass + minimal labels (Palm Jumeirah, Downtown, Sheikh Zayed Rd) in very light grey type — kept sparse so it doesn't feel like an infographic.
+- All interactions keyboard-accessible (`<button>` wrapping each zone path, `aria-label`, focus ring).
 
-For ready with `horizon = 3`:
-- Property value at exit = xls `E14` = 1,157,625 (uses xls's explicit ready Y1–Y3 schedule: 1.05M, 1.1025M, 1.157625M — not pure compounding).
-- Rental = sum of `F11+F12+F13` = AED 220,675 on a 1M base.
-- Same DLD/ROI math.
+### Info panel (right side)
+For the selected zone, shows:
+- Tier chip (color-coded) + zone name (Playfair)
+- One-line positioning ("Next-gen lifestyle & tourism destination")
+- 5Y / 10Y outlook as gold star rows
+- Risk level + "Ideal for" line
+- **Key projects** list — 2–3 named developments per zone with small thumbnail (square, rounded, elevated shadow). Thumbnails are sourced from a typed data file so you can swap images later.
 
-**Implementation detail:** I'll extend `loadROIConfig` to also read the explicit ready-property year values (`E11:E16`) and the rental-yield-per-year column (`F11:F16`) from the xls so the calculator reproduces the spreadsheet exactly for both horizons, scaled linearly by `propertyValue / 1,000,000`. This is the simplest way to guarantee a 1:1 match with the xls at any base price.
+A small tier filter row above the map ("All · Tier 1 · Tier 2 · Tier 3") dims non-matching zones — optional polish, kept minimal.
 
-**Headline summary card** label currently reads "Total Inflow (5Y)" hardcoded from `cfg.horizonYears` — I'll switch it to the active `horizon` state so it correctly says "(3Y)" or "(5Y)".
+### Data source
+New file `src/lib/dubaiZones.ts` exporting a typed array:
+```ts
+export type Zone = {
+  id: number; name: string; tier: 1|2|3;
+  positioning: string;
+  outlook5y: number; outlook10y: number; // 1–5 stars
+  riskLevel: "Low"|"Low–Medium"|"Medium";
+  idealFor: string;
+  projects: { name: string; developer: string; image: string }[];
+  svgPath: string; // polygon points
+  badge: { x: number; y: number };
+};
+```
+Seeded with all 10 zones from the reference. Project thumbnails left as placeholder asset URLs you can replace; structure is ready.
 
-## 2. Branding & contact edits
+### Files
+- **Create** `src/components/DubaiInvestmentMap.tsx` — section component
+- **Create** `src/components/DubaiMapSVG.tsx` — SVG map with hover/select callbacks
+- **Create** `src/lib/dubaiZones.ts` — zone data
+- **Edit** `src/pages/Index.tsx` — import + insert section
+- **Edit** `src/index.css` — add `--tier-1/2/3` semantic tokens
+- **Edit** `tailwind.config.ts` — expose tier colors
 
-**Remove "Altira Aura Real Estate" everywhere:**
-- `src/components/Navbar.tsx` — remove the subtitle under the name.
-- `src/components/Hero.tsx` — strip from the intro strip; replace with "Real Estate Advisor".
-- `src/components/ContactCTA.tsx` — remove the company line under Shekhar's name AND from the footer (leaves just "Shekhar Beura · Real Estate Advisor").
-
-**Add "Real Estate Advisor" as subtitle** wherever Shekhar's name appears without one:
-- Hero intro strip (replaces "Altira Aura Real Estate · In Dubai since 2012" with "Real Estate Advisor").
-- Navbar (replaces "Altira Aura Real Estate" with "Real Estate Advisor").
-- Footer in ContactCTA.
-
-**Email change:** `shekhar@altiraaura.com` → `beura.shekhar@gmail.com` in `ContactCTA.tsx`.
-
-**Remove the office address block** (MapPin row) from `ContactCTA.tsx`.
-
-## 3. Memory update
-
-Update `mem://branding/personal-brand` and `mem://index.md` Core to drop the secondary Altira Aura branding rule and add: subtitle is "Real Estate Advisor"; email is beura.shekhar@gmail.com; no office address shown.
-
-## Files touched
-
-- `src/lib/roiSource.ts` — read ready year-values + rental column from xls, fix 3-year computePlan.
-- `src/components/ROICalculator.tsx` — dynamic "(NY)" label.
-- `src/components/Navbar.tsx`, `src/components/Hero.tsx`, `src/components/ContactCTA.tsx` — branding + contact edits.
-- Memory files.
-
-## Confirm before I build
-
-The 3-year off-plan ROI under this approach is ~35% on net (no rental), since rental starts at handover. If you want the 3-year off-plan to include a Year-3 rental, say the word and I'll add it — but as written the xls excludes it.
+### Out of scope (can do later)
+- Real geo-accurate map (would require Mapbox/Leaflet — breaks minimal aesthetic)
+- Real project photography (placeholders until you supply images)

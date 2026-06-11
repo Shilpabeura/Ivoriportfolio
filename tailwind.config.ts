@@ -63,6 +63,11 @@ export default {
         },
         cream: "hsl(var(--cream))",
         slate: "hsl(var(--slate))",
+        tier: {
+          1: "hsl(var(--tier-1))",
+          2: "hsl(var(--tier-2))",
+          3: "hsl(var(--tier-3))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
