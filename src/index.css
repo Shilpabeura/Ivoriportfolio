@@ -47,10 +47,6 @@
     --slate: 220 10% 55%;
     --section-alt: 220 10% 96%;
 
-    --tier-1: 36 72% 45%;
-    --tier-2: 18 62% 52%;
-    --tier-3: 150 24% 42%;
-
     --gradient-gold: linear-gradient(135deg, hsl(38 80% 50%), hsl(30 70% 35%));
     --gradient-dark: linear-gradient(180deg, hsl(220 10% 96%), hsl(220 10% 94%));
     --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(220 10% 97%));
