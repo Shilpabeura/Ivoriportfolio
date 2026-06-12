@@ -1,54 +1,59 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Star, MapPin, ShieldCheck, Target } from "lucide-react";
-import DubaiMapSVG from "./DubaiMapSVG";
-import { DUBAI_ZONES, TIER_META, type Tier } from "@/lib/dubaiZones";
+import { Star, StarHalf, ShieldCheck, Target, X, MapPin } from "lucide-react";
+import { DUBAI_ZONES, TIER_META, type Tier, type Zone } from "@/lib/dubaiZones";
+import mapImage from "@/assets/dubai-map.jpg";
 
-const StarRow = ({ value, max = 5 }: { value: number; max?: number }) => (
-  <div className="flex gap-0.5">
-    {Array.from({ length: max }).map((_, i) => (
-      <Star
-        key={i}
-        className={`w-3.5 h-3.5 ${i < value ? "fill-gold text-gold" : "text-muted-foreground/30"}`}
-      />
-    ))}
-  </div>
-);
+const TIER_HSL: Record<Tier, string> = {
+  1: "hsl(var(--tier-1))",
+  2: "hsl(var(--tier-2))",
+  3: "hsl(var(--tier-3))",
+};
+
+const StarRow = ({ value, max = 5 }: { value: number; max?: number }) => {
+  const full = Math.floor(value);
+  const half = value - full >= 0.5;
+  return (
+    <div className="flex gap-0.5" aria-label={`${value} out of ${max}`}>
+      {Array.from({ length: max }).map((_, i) => {
+        if (i < full)
+          return <Star key={i} className="w-3.5 h-3.5 fill-gold text-gold" />;
+        if (i === full && half)
+          return <StarHalf key={i} className="w-3.5 h-3.5 fill-gold text-gold" />;
+        return <Star key={i} className="w-3.5 h-3.5 text-muted-foreground/30" />;
+      })}
+    </div>
+  );
+};
 
 const TierChip = ({ tier }: { tier: Tier }) => (
   <span
     className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium tracking-wide uppercase"
     style={{
-      backgroundColor: `hsl(var(--tier-${tier}) / 0.12)`,
-      color: `hsl(var(--tier-${tier}))`,
+      backgroundColor: `hsl(var(--tier-${tier}) / 0.14)`,
+      color: TIER_HSL[tier],
     }}
   >
-    <span
-      className="w-1.5 h-1.5 rounded-full"
-      style={{ backgroundColor: `hsl(var(--tier-${tier}))` }}
-    />
+    <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: TIER_HSL[tier] }} />
     {TIER_META[tier].label}
   </span>
 );
 
 const DubaiInvestmentMap = () => {
-  const [selectedId, setSelectedId] = useState<number | null>(1);
-  const [hoveredId, setHoveredId] = useState<number | null>(null);
+  const [selected, setSelected] = useState<Zone | null>(null);
+  const [hovered, setHovered] = useState<Zone | null>(null);
   const [activeTier, setActiveTier] = useState<Tier | "all">("all");
-
-  const activeId = hoveredId ?? selectedId;
-  const activeZone = DUBAI_ZONES.find((z) => z.id === activeId) ?? null;
 
   return (
     <section id="map" className="py-24 md:py-32 bg-section-alt relative overflow-hidden">
       <div className="container mx-auto px-6">
-        {/* Header */}
+        {/* Header — centered */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="max-w-3xl mb-12"
+          className="max-w-3xl mx-auto text-center mb-10"
         >
           <p className="text-xs tracking-[0.25em] uppercase text-gold mb-4 font-medium">
             Dubai 2040 Master Plan
@@ -57,13 +62,13 @@ const DubaiInvestmentMap = () => {
             Where The Smart Money <span className="text-gradient-gold">Is Going</span>
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed">
-            Growth corridors, urban centres and future value — a tier-ranked view of the ten zones
-            shaping Dubai&rsquo;s next decade.
+            A tier-ranked view of the ten growth corridors and urban centres shaping
+            Dubai&rsquo;s next decade.
           </p>
         </motion.div>
 
         {/* Tier filter */}
-        <div className="flex flex-wrap items-center gap-2 mb-8">
+        <div className="flex flex-wrap justify-center items-center gap-2 mb-8">
           {(["all", 1, 2, 3] as const).map((t) => {
             const isActive = activeTier === t;
             const label = t === "all" ? "All Zones" : TIER_META[t].label;
@@ -80,8 +85,8 @@ const DubaiInvestmentMap = () => {
                 {label}
                 {t !== "all" && (
                   <span
-                    className="inline-block w-1.5 h-1.5 rounded-full ml-2"
-                    style={{ backgroundColor: `hsl(var(--tier-${t}))` }}
+                    className="inline-block w-1.5 h-1.5 rounded-full ml-2 align-middle"
+                    style={{ backgroundColor: TIER_HSL[t] }}
                   />
                 )}
               </button>
@@ -89,157 +94,223 @@ const DubaiInvestmentMap = () => {
           })}
         </div>
 
-        {/* Map + Panel */}
-        <div className="grid lg:grid-cols-5 gap-8 items-start">
-          {/* Map */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="lg:col-span-3 bg-background rounded-2xl shadow-elevated p-4 md:p-6 border border-border/50"
-          >
-            <DubaiMapSVG
-              selectedId={selectedId}
-              hoveredId={hoveredId}
-              activeTier={activeTier}
-              onSelect={setSelectedId}
-              onHover={setHoveredId}
-            />
-          </motion.div>
+        {/* Map */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="relative w-full rounded-2xl overflow-hidden shadow-elevated border border-border/50 bg-background"
+        >
+          <img
+            src={mapImage}
+            alt="Dubai 2040 real estate investment heat map showing growth corridors, urban centres, airports, expressways and metro network"
+            className="w-full h-auto block select-none"
+            draggable={false}
+          />
 
-          {/* Info Panel */}
-          <div className="lg:col-span-2 lg:sticky lg:top-24">
-            <AnimatePresence mode="wait">
-              {activeZone ? (
+          {/* Hotspots overlay */}
+          <div className="absolute inset-0">
+            {DUBAI_ZONES.map((z) => {
+              const dimmed = activeTier !== "all" && z.tier !== activeTier;
+              const isHover = hovered?.id === z.id;
+              const size = (z.r ?? 6) * 2; // % of image width
+              return (
+                <button
+                  key={z.id}
+                  type="button"
+                  onMouseEnter={() => setHovered(z)}
+                  onMouseLeave={() => setHovered((h) => (h?.id === z.id ? null : h))}
+                  onFocus={() => setHovered(z)}
+                  onBlur={() => setHovered((h) => (h?.id === z.id ? null : h))}
+                  onClick={() => setSelected(z)}
+                  aria-label={`${z.name}, ${TIER_META[z.tier].label}`}
+                  className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full outline-none transition-all duration-300 focus-visible:ring-2 focus-visible:ring-gold"
+                  style={{
+                    left: `${z.pos.x}%`,
+                    top: `${z.pos.y}%`,
+                    width: `${size}%`,
+                    aspectRatio: "1 / 1",
+                    background: isHover
+                      ? `radial-gradient(circle, ${TIER_HSL[z.tier]} 0%, transparent 70%)`
+                      : "transparent",
+                    opacity: dimmed ? 0.25 : 1,
+                    cursor: "pointer",
+                  }}
+                >
+                  <span
+                    className="absolute inset-1/2 w-2.5 h-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full ring-2 ring-white shadow-md transition-transform"
+                    style={{
+                      backgroundColor: TIER_HSL[z.tier],
+                      transform: `translate(-50%, -50%) scale(${isHover ? 1.4 : 1})`,
+                    }}
+                  />
+                </button>
+              );
+            })}
+
+            {/* Hover tooltip */}
+            <AnimatePresence>
+              {hovered && (
                 <motion.div
-                  key={activeZone.id}
-                  initial={{ opacity: 0, y: 12 }}
+                  key={hovered.id}
+                  initial={{ opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.3 }}
-                  className="bg-background rounded-2xl shadow-elevated border border-border/50 p-7"
+                  exit={{ opacity: 0, y: 6 }}
+                  transition={{ duration: 0.18 }}
+                  className="absolute z-10 pointer-events-none"
+                  style={{
+                    left: `${hovered.pos.x}%`,
+                    top: `${hovered.pos.y}%`,
+                    transform: `translate(-50%, calc(-100% - ${(hovered.r ?? 6) + 1}%))`,
+                  }}
                 >
-                  <div className="flex items-center justify-between mb-4">
-                    <TierChip tier={activeZone.tier} />
-                    <span className="text-xs text-muted-foreground tabular-nums">
-                      0{activeZone.id}
-                    </span>
-                  </div>
-
-                  <h3 className="font-display text-3xl font-medium leading-tight mb-1">
-                    {activeZone.name}
-                  </h3>
-                  {activeZone.shortName && (
-                    <p className="text-sm text-muted-foreground mb-4">{activeZone.shortName}</p>
-                  )}
-                  <p className="text-foreground/80 leading-relaxed mb-6">
-                    {activeZone.positioning}
-                  </p>
-
-                  {/* Outlook */}
-                  <div className="grid grid-cols-2 gap-4 mb-6 py-4 border-y border-border/60">
-                    <div>
-                      <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mb-1.5">
-                        5Y Outlook
-                      </p>
-                      <StarRow value={activeZone.outlook5y} />
+                  <div className="min-w-[220px] max-w-[260px] bg-background/95 backdrop-blur-md border border-border rounded-xl shadow-elevated p-3.5">
+                    <div className="flex items-center justify-between mb-2">
+                      <TierChip tier={hovered.tier} />
+                      <span className="text-[10px] text-muted-foreground tabular-nums">
+                        0{hovered.id}
+                      </span>
                     </div>
-                    <div>
-                      <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mb-1.5">
-                        10Y Outlook
-                      </p>
-                      <StarRow value={activeZone.outlook10y} />
-                    </div>
-                  </div>
-
-                  {/* Risk & Ideal for */}
-                  <div className="space-y-3 mb-6">
-                    <div className="flex items-start gap-3">
-                      <ShieldCheck className="w-4 h-4 text-gold mt-0.5 shrink-0" />
-                      <div>
-                        <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground">
-                          Risk Level
-                        </p>
-                        <p className="text-sm text-foreground">{activeZone.riskLevel}</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <Target className="w-4 h-4 text-gold mt-0.5 shrink-0" />
-                      <div>
-                        <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground">
-                          Ideal For
-                        </p>
-                        <p className="text-sm text-foreground">{activeZone.idealFor}</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Key projects */}
-                  <div>
-                    <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mb-3">
-                      Key Projects
+                    <p className="font-display text-base font-medium leading-tight">
+                      {hovered.name}
                     </p>
-                    <ul className="space-y-2.5">
-                      {activeZone.projects.map((p) => (
-                        <li
-                          key={p.name}
-                          className="flex items-center gap-3 p-2.5 rounded-lg bg-muted/40 border border-border/40"
-                        >
-                          {p.image ? (
-                            <img
-                              src={p.image}
-                              alt={p.name}
-                              className="w-10 h-10 rounded-md object-cover shadow-sm"
-                            />
-                          ) : (
-                            <div className="w-10 h-10 rounded-md bg-gradient-to-br from-gold/20 to-gold/5 border border-gold/20 flex items-center justify-center">
-                              <MapPin className="w-4 h-4 text-gold/70" />
-                            </div>
-                          )}
-                          <div className="min-w-0">
-                            <p className="text-sm font-medium text-foreground truncate">{p.name}</p>
-                            <p className="text-xs text-muted-foreground truncate">{p.developer}</p>
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
+                    <p className="text-[11px] text-muted-foreground mb-2.5">
+                      {TIER_META[hovered.tier].sub}
+                    </p>
+                    <div className="grid grid-cols-2 gap-2 pt-2 border-t border-border/60">
+                      <div>
+                        <p className="text-[9px] tracking-[0.18em] uppercase text-muted-foreground mb-0.5">5Y</p>
+                        <StarRow value={TIER_META[hovered.tier].outlook5y} />
+                      </div>
+                      <div>
+                        <p className="text-[9px] tracking-[0.18em] uppercase text-muted-foreground mb-0.5">10Y</p>
+                        <StarRow value={TIER_META[hovered.tier].outlook10y} />
+                      </div>
+                    </div>
+                    <p className="text-[11px] text-muted-foreground mt-2">
+                      <span className="text-foreground/80">Risk:</span> {TIER_META[hovered.tier].riskLevel}
+                    </p>
                   </div>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="empty"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="bg-background rounded-2xl shadow-elevated border border-border/50 p-7"
-                >
-                  <p className="text-muted-foreground">
-                    Hover or tap a zone on the map to explore its tier, outlook and active projects.
-                  </p>
                 </motion.div>
               )}
             </AnimatePresence>
-
-            {/* Legend */}
-            <div className="mt-4 flex flex-wrap gap-3 text-xs text-muted-foreground">
-              {(Object.keys(TIER_META) as unknown as Tier[]).map((t) => (
-                <div key={t} className="flex items-center gap-1.5">
-                  <span
-                    className="w-2 h-2 rounded-full"
-                    style={{ backgroundColor: `hsl(var(--tier-${t}))` }}
-                  />
-                  {TIER_META[t as Tier].sub}
-                </div>
-              ))}
-            </div>
           </div>
+        </motion.div>
+
+        {/* Legend */}
+        <div className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs text-muted-foreground">
+          {([1, 2, 3] as Tier[]).map((t) => (
+            <div key={t} className="flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full" style={{ backgroundColor: TIER_HSL[t] }} />
+              <span className="text-foreground/80 font-medium">{TIER_META[t].label}</span>
+              <span>— {TIER_META[t].sub}</span>
+            </div>
+          ))}
         </div>
 
-        <p className="text-xs text-muted-foreground/70 mt-8 italic">
+        <p className="text-xs text-center text-muted-foreground/70 mt-6 italic">
           Source: Dubai 2040 Urban Master Plan, RTA, DXB Airport, DP World, Emaar, DDA, Open Data Dubai. Map is illustrative and not to scale.
         </p>
       </div>
+
+      {/* Click — full detail overlay */}
+      <AnimatePresence>
+        {selected && (
+          <motion.div
+            key="overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-foreground/40 backdrop-blur-sm"
+            onClick={() => setSelected(null)}
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 20, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 10, scale: 0.97 }}
+              transition={{ duration: 0.25 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-lg bg-background rounded-2xl shadow-elevated border border-border/50 p-8"
+            >
+              <button
+                onClick={() => setSelected(null)}
+                aria-label="Close"
+                className="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition"
+              >
+                <X className="w-4 h-4" />
+              </button>
+
+              <div className="flex items-center gap-3 mb-4">
+                <TierChip tier={selected.tier} />
+                <span className="text-xs text-muted-foreground tabular-nums">0{selected.id}</span>
+              </div>
+
+              <h3 className="font-display text-3xl font-medium leading-tight mb-1">
+                {selected.name}
+              </h3>
+              {selected.shortName && (
+                <p className="text-sm text-muted-foreground mb-3 flex items-center gap-1.5">
+                  <MapPin className="w-3.5 h-3.5" />
+                  {selected.shortName}
+                </p>
+              )}
+              <p className="text-foreground/80 leading-relaxed mb-6">{selected.positioning}</p>
+
+              <div className="grid grid-cols-2 gap-4 mb-6 py-4 border-y border-border/60">
+                <div>
+                  <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mb-1.5">
+                    5Y Outlook
+                  </p>
+                  <StarRow value={TIER_META[selected.tier].outlook5y} />
+                </div>
+                <div>
+                  <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground mb-1.5">
+                    10Y Outlook
+                  </p>
+                  <StarRow value={TIER_META[selected.tier].outlook10y} />
+                </div>
+              </div>
+
+              <div className="space-y-3 mb-2">
+                <div className="flex items-start gap-3">
+                  <ShieldCheck className="w-4 h-4 text-gold mt-0.5 shrink-0" />
+                  <div>
+                    <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground">
+                      Risk Level
+                    </p>
+                    <p className="text-sm text-foreground">{TIER_META[selected.tier].riskLevel}</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Target className="w-4 h-4 text-gold mt-0.5 shrink-0" />
+                  <div>
+                    <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground">
+                      Ideal For
+                    </p>
+                    <p className="text-sm text-foreground">{TIER_META[selected.tier].idealFor}</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div
+                    className="w-4 h-4 mt-0.5 shrink-0 rounded-full"
+                    style={{ backgroundColor: TIER_HSL[selected.tier] }}
+                  />
+                  <div>
+                    <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground">
+                      Tier Classification
+                    </p>
+                    <p className="text-sm text-foreground">
+                      {TIER_META[selected.tier].label} — {TIER_META[selected.tier].sub}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
