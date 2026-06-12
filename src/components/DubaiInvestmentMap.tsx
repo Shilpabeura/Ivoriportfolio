@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, StarHalf, ShieldCheck, Target, X, MapPin } from "lucide-react";
 import { DUBAI_ZONES, TIER_META, type Tier, type Zone } from "@/lib/dubaiZones";
-import mapImage from "@/assets/dubai-map.jpg";
+import DubaiMapSVG from "./DubaiMapSVG";
 
 const TIER_HSL: Record<Tier, string> = {
   1: "hsl(var(--tier-1))",
