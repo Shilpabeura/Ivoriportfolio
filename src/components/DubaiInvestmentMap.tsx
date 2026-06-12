@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, StarHalf, ShieldCheck, Target, X, MapPin } from "lucide-react";
 import { DUBAI_ZONES, TIER_META, type Tier, type Zone } from "@/lib/dubaiZones";
-import mapImage from "@/assets/dubai-map.jpg";
+import DubaiMapSVG from "./DubaiMapSVG";
 
 const TIER_HSL: Record<Tier, string> = {
   1: "hsl(var(--tier-1))",
@@ -102,19 +102,15 @@ const DubaiInvestmentMap = () => {
           transition={{ duration: 0.8 }}
           className="relative w-full rounded-2xl overflow-hidden shadow-elevated border border-border/50 bg-background"
         >
-          <img
-            src={mapImage}
-            alt="Dubai 2040 real estate investment heat map showing growth corridors, urban centres, airports, expressways and metro network"
-            className="w-full h-auto block select-none"
-            draggable={false}
-          />
+          <DubaiMapSVG className="w-full h-auto block select-none" />
+
 
           {/* Hotspots overlay */}
           <div className="absolute inset-0">
             {DUBAI_ZONES.map((z) => {
               const dimmed = activeTier !== "all" && z.tier !== activeTier;
               const isHover = hovered?.id === z.id;
-              const size = (z.r ?? 6) * 2; // % of image width
+              const size = 7; // % of map width — hit area
               return (
                 <button
                   key={z.id}
@@ -162,7 +158,7 @@ const DubaiInvestmentMap = () => {
                   style={{
                     left: `${hovered.pos.x}%`,
                     top: `${hovered.pos.y}%`,
-                    transform: `translate(-50%, calc(-100% - ${(hovered.r ?? 6) + 1}%))`,
+                    transform: `translate(-50%, calc(-100% - 14px))`,
                   }}
                 >
                   <div className="min-w-[220px] max-w-[260px] bg-background/95 backdrop-blur-md border border-border rounded-xl shadow-elevated p-3.5">
