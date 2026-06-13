@@ -41,16 +41,16 @@ const TIER_META: Record<Tier, { label: string; definition: string; color: string
 };
 
 const REGIONS: Region[] = [
-  { id: 1, name: "Dubai South", tier: 1, fiveYear: 5, tenYear: 5, risk: "Medium", idealFor: "Capital Appreciation (long term)", x: 37.5, y: 82, size: 9 },
-  { id: 2, name: "Expo City Dubai", tier: 1, fiveYear: 5, tenYear: 5, risk: "Medium", idealFor: "Capital Appreciation (long term)", x: 36.7, y: 69, size: 5 },
-  { id: 3, name: "Dubai Land", tier: 1, fiveYear: 5, tenYear: 5, risk: "Medium", idealFor: "Capital Appreciation (long term)", x: 58.8, y: 43, size: 7 },
-  { id: 4, name: "Dubai Hills Estate", tier: 2, fiveYear: 4, tenYear: 4, risk: "Low-Medium", idealFor: "Balance of Yield and Growth", x: 51, y: 37, size: 5 },
-  { id: 5, name: "Dubai Silicon Oasis", tier: 2, fiveYear: 4, tenYear: 4, risk: "Low-Medium", idealFor: "Balance of Yield and Growth", x: 60, y: 33, size: 5 },
-  { id: 6, name: "Meydan / MBR City", tier: 2, fiveYear: 4, tenYear: 4, risk: "Low-Medium", idealFor: "Balance of Yield and Growth", x: 53.4, y: 29, size: 5 },
-  { id: 7, name: "Downtown Dubai", tier: 3, fiveYear: 4, tenYear: 4, risk: "Low", idealFor: "Income and Wealth Preservation", x: 52.3, y: 13, size: 4 },
-  { id: 8, name: "Business Bay", tier: 3, fiveYear: 4, tenYear: 4, risk: "Low", idealFor: "Income and Wealth Preservation", x: 51, y: 22, size: 4 },
-  { id: 9, name: "Dubai Marina", tier: 3, fiveYear: 4, tenYear: 4, risk: "Low", idealFor: "Income and Wealth Preservation", x: 46.6, y: 24, size: 4 },
-  { id: 10, name: "Palm Jumeirah", tier: 3, fiveYear: 4, tenYear: 4, risk: "Low", idealFor: "Income and Wealth Preservation", x: 34.4, y: 36, size: 5 },
+  { id: 1, name: "Dubai South", tier: 1, fiveYear: 5, tenYear: 5, risk: "Medium", idealFor: "Capital Appreciation (long term)", x: 37.2, y: 87, size: 9 },
+  { id: 2, name: "Expo City Dubai", tier: 1, fiveYear: 5, tenYear: 5, risk: "Medium", idealFor: "Capital Appreciation (long term)", x: 36.6, y: 73.3, size: 5 },
+  { id: 3, name: "Dubai Land", tier: 1, fiveYear: 5, tenYear: 5, risk: "Medium", idealFor: "Capital Appreciation (long term)", x: 58.6, y: 45, size: 7 },
+  { id: 4, name: "Dubai Hills Estate", tier: 2, fiveYear: 4, tenYear: 4, risk: "Low-Medium", idealFor: "Balance of Yield and Growth", x: 50.8, y: 38.6, size: 5 },
+  { id: 5, name: "Dubai Silicon Oasis", tier: 2, fiveYear: 4, tenYear: 4, risk: "Low-Medium", idealFor: "Balance of Yield and Growth", x: 59.9, y: 34.7, size: 5 },
+  { id: 6, name: "Meydan / MBR City", tier: 2, fiveYear: 4, tenYear: 4, risk: "Low-Medium", idealFor: "Balance of Yield and Growth", x: 53.4, y: 30.3, size: 5 },
+  { id: 7, name: "Downtown Dubai", tier: 3, fiveYear: 4, tenYear: 4, risk: "Low", idealFor: "Income and Wealth Preservation", x: 52.2, y: 13.7, size: 4 },
+  { id: 8, name: "Business Bay", tier: 3, fiveYear: 4, tenYear: 4, risk: "Low", idealFor: "Income and Wealth Preservation", x: 51, y: 23, size: 4 },
+  { id: 9, name: "Dubai Marina", tier: 3, fiveYear: 4, tenYear: 4, risk: "Low", idealFor: "Income and Wealth Preservation", x: 46.4, y: 25.4, size: 4 },
+  { id: 10, name: "Palm Jumeirah", tier: 3, fiveYear: 4, tenYear: 4, risk: "Low", idealFor: "Income and Wealth Preservation", x: 34.6, y: 38.1, size: 5 },
 ];
 
 const Stars = ({ count }: { count: number }) => (
@@ -117,11 +117,11 @@ const GrowthMap = () => {
           transition={{ duration: 0.8, delay: 0.1 }}
           className="relative w-full rounded-2xl overflow-hidden shadow-elevated border border-border bg-background"
         >
-          <div className="relative w-full" style={{ aspectRatio: "1920 / 1080" }}>
+          <div className="relative w-full" style={{ aspectRatio: "1920 / 1023" }}>
             <img
               src={dubaiMap}
               alt="Dubai investment growth map showing tiered zones"
-              className="absolute inset-0 w-full h-full object-cover select-none"
+              className="absolute inset-0 w-full h-full object-contain select-none"
               draggable={false}
             />
 
