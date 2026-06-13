@@ -117,11 +117,11 @@ const GrowthMap = () => {
           transition={{ duration: 0.8, delay: 0.1 }}
           className="relative w-full rounded-2xl overflow-hidden shadow-elevated border border-border bg-background"
         >
-          <div className="relative w-full" style={{ aspectRatio: "1920 / 1080" }}>
+          <div className="relative w-full" style={{ aspectRatio: "1920 / 1023" }}>
             <img
               src={dubaiMap}
               alt="Dubai investment growth map showing tiered zones"
-              className="absolute inset-0 w-full h-full object-cover select-none"
+              className="absolute inset-0 w-full h-full object-contain select-none"
               draggable={false}
             />
 
