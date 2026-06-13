@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import WhyDifferent from "@/components/WhyDifferent";
 import InvestorBenefits from "@/components/InvestorBenefits";
+import GrowthMap from "@/components/GrowthMap";
 import ROICalculator from "@/components/ROICalculator";
 import MarketComparison from "@/components/MarketComparison";
 import ContactCTA from "@/components/ContactCTA";
@@ -13,6 +14,7 @@ const Index = () => {
       <Hero />
       <WhyDifferent />
       <InvestorBenefits />
+      <GrowthMap />
       <ROICalculator />
       <MarketComparison />
       <ContactCTA />
