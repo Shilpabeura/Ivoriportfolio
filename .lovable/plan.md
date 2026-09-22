@@ -1,52 +1,38 @@
-## 1. Fix 3-Year ROI to match the spreadsheet
+# Moving from personal brand to the Ivori company site
 
-The xlsx has 5-year inflow values, but the year-by-year cells (Year 0–5) are the basis for any horizon. I'll align the 3-year horizon to read straight from the xls's Year-3 cells, using the same rules the xls applies.
+## What changes visually
 
-**`src/lib/roiSource.ts` — `computePlan` changes:**
+- The handwritten **ivori** mark replaces "Shekhar Beura / Real Estate Advisor" in the header and in the footer. It sits left-aligned, roughly 28-32px tall, in the existing dark ink colour so it reads as a wordmark rather than an image.
+- The browser tab icon becomes the ivori mark too, and the page title/description change to Ivori.
+- Shekhar does not disappear — he moves from "the brand" to "the founder". His photo and name stay in the hero intro strip and the contact card, now labelled **Founder & Lead Advisor, Ivori**.
+- Everything else (colours, Playfair/DM Sans, gold accents, photography) stays exactly as it is. The script logo sits naturally in that palette.
 
-For off-plan with `horizon = 3`:
-- Property value at exit = `1M × (1 + offPlanGrowth)^3` (= AED 1,404,928 for 1M base) — matches xls `C14`.
-- Rental income = 0. (xls treats Year 3 as handover; rental starts *post-handover*, so a 3-year exit captures no rental years before sale.)
-- Total invested = property + 4% DLD (unchanged).
-- Net profit = exit value − invested. ROI = net / invested.
-- IRR labels: add a second IRR range field per plan for the 3-year case (placeholder strings; you can fine-tune in the xls). For now I'll leave IRR blank when horizon = 3 unless you provide values.
+## Content recommendations
 
-For ready with `horizon = 3`:
-- Property value at exit = xls `E14` = 1,157,625 (uses xls's explicit ready Y1–Y3 schedule: 1.05M, 1.1025M, 1.157625M — not pure compounding).
-- Rental = sum of `F11+F12+F13` = AED 220,675 on a 1M base.
-- Same DLD/ROI math.
+These are suggestions — tell me which ones you want.
 
-**Implementation detail:** I'll extend `loadROIConfig` to also read the explicit ready-property year values (`E11:E16`) and the rental-yield-per-year column (`F11:F16`) from the xls so the calculator reproduces the spreadsheet exactly for both horizons, scaled linearly by `propertyValue / 1,000,000`. This is the simplest way to guarantee a 1:1 match with the xls at any base price.
+1. **Hero sub-line becomes company voice.** Keep the headline "The Smart Money Is Moving to Dubai", but change the eyebrow line from "Dubai Real Estate · Investment Advisory" to "Ivori · Dubai Real Estate Investment Advisory", and the primary button from "Connect with Shekhar" to "Talk to Ivori".
 
-**Headline summary card** label currently reads "Total Inflow (5Y)" hardcoded from `cfg.horizonYears` — I'll switch it to the active `horizon` state so it correctly says "(3Y)" or "(5Y)".
+2. **Shift "I" to "we".** The contact section currently reads "I'll guide you through it." A company site normally reads "We'll guide you through it — transparent, no pressure, no obligation." Shekhar's personal voice can stay in one place only: a short founder's note.
 
-## 2. Branding & contact edits
+3. **New: a short "About Ivori" band** under the hero or before contact. Three or four lines on what the firm does (investor-first advisory, off-plan and ready, payment-plan structuring, exit planning) plus a founder's note with Shekhar's photo and a one-paragraph quote in his own voice. This is the single most useful addition for credibility.
 
-**Remove "Altira Aura Real Estate" everywhere:**
-- `src/components/Navbar.tsx` — remove the subtitle under the name.
-- `src/components/Hero.tsx` — strip from the intro strip; replace with "Real Estate Advisor".
-- `src/components/ContactCTA.tsx` — remove the company line under Shekhar's name AND from the footer (leaves just "Shekhar Beura · Real Estate Advisor").
+4. **New: "How We Work" — three or four steps.** Discovery call → market and payment-plan shortlist → developer and unit selection → handover and exit support. Cheap to build, and it answers the "what do I actually get" question a company site is expected to answer.
 
-**Add "Real Estate Advisor" as subtitle** wherever Shekhar's name appears without one:
-- Hero intro strip (replaces "Altira Aura Real Estate · In Dubai since 2012" with "Real Estate Advisor").
-- Navbar (replaces "Altira Aura Real Estate" with "Real Estate Advisor").
-- Footer in ContactCTA.
+5. **New: a small trust strip.** RERA/broker registration number, years in Dubai, developers worked with, number of investors advised. Only if you can give me the real numbers — I will not invent any.
 
-**Email change:** `shekhar@altiraaura.com` → `beura.shekhar@gmail.com` in `ContactCTA.tsx`.
+6. **Footer grows slightly.** ivori mark, one line of positioning, quick links, WhatsApp and email, and "© Ivori. All rights reserved." A company email (e.g. hello@ivori.ae) would fit better than the Gmail address once you have one.
 
-**Remove the office address block** (MapPin row) from `ContactCTA.tsx`.
+7. **Keep as-is:** the ROI calculator, growth map, Dubai-vs-global comparison and investor-benefits sections all work unchanged for a company site. No edits planned there.
 
-## 3. Memory update
+## Technical notes
 
-Update `mem://branding/personal-brand` and `mem://index.md` Core to drop the secondary Altira Aura branding rule and add: subtitle is "Real Estate Advisor"; email is beura.shekhar@gmail.com; no office address shown.
+- Logo added via `lovable-assets` from the uploaded PNG, imported as a pointer and used as an `<img>` in `Navbar.tsx` and the footer in `ContactCTA.tsx`; favicon written as a real square PNG in `public/`.
+- Touched files: `Navbar.tsx`, `Hero.tsx`, `ContactCTA.tsx`, `index.html`, plus new `About.tsx` / `HowWeWork.tsx` and a mount in `pages/Index.tsx` for whichever new sections you approve.
+- Project memory updated: brand is Ivori, Shekhar is Founder & Lead Advisor.
 
-## Files touched
+## Open questions
 
-- `src/lib/roiSource.ts` — read ready year-values + rental column from xls, fix 3-year computePlan.
-- `src/components/ROICalculator.tsx` — dynamic "(NY)" label.
-- `src/components/Navbar.tsx`, `src/components/Hero.tsx`, `src/components/ContactCTA.tsx` — branding + contact edits.
-- Memory files.
-
-## Confirm before I build
-
-The 3-year off-plan ROI under this approach is ~35% on net (no rental), since rental starts at handover. If you want the 3-year off-plan to include a Year-3 rental, say the word and I'll add it — but as written the xls excludes it.
+- Is the full legal/display name just **Ivori**, or Ivori Real Estate / Ivori Properties?
+- Which of the new sections do you want: About + founder's note, How We Work, trust strip — all, or a subset?
+- Do you have a company email, RERA number, or founding year I should use? If not, I'll leave those out rather than make them up.
