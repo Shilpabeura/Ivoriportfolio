@@ -26,7 +26,7 @@ const ContactCTA = () => {
               are reliable, or how to enter smart and secure —
             </p>
             <p className="text-foreground text-lg font-medium">
-              I'll guide you through it. Transparent, no pressure, no obligation.
+               We'll guide you through it — transparent, no pressure, no obligation.
             </p>
           </motion.div>
 
@@ -62,7 +62,7 @@ const ContactCTA = () => {
                     Shekhar Beura
                   </h3>
                   <p className="text-primary text-sm font-semibold mb-4 tracking-wide">
-                    Real Estate Advisor
+                     Founder &amp; Lead Advisor, Ivori
                   </p>
                 </div>
 
@@ -72,7 +72,7 @@ const ContactCTA = () => {
                     href="https://wa.me/971569510061"
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label="Chat with Shekhar on WhatsApp"
+                     aria-label="Chat with Ivori on WhatsApp"
                     className="group flex items-center gap-4 p-4 rounded-xl bg-primary/10 border border-primary/20 hover:bg-primary/20 hover:border-primary/30 hover:shadow-gold transition-all cursor-pointer"
                   >
                     <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
@@ -110,17 +110,23 @@ const ContactCTA = () => {
       {/* Footer */}
       <div className="mt-20 border-t border-border pt-8">
         <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div>
-            <span className="font-display text-sm text-foreground font-semibold">
-              Shekhar Beura
-            </span>
-            <span className="text-muted-foreground text-sm ml-2">
-              · Real Estate Advisor
+          <div className="flex flex-col items-center md:items-start gap-2">
+            <img src="/ivori-logo.png" alt="Ivori" className="h-7 w-auto" />
+            <span className="text-muted-foreground text-xs">
+              Dubai real estate investment advisory
             </span>
           </div>
-          <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} All rights reserved.
-          </p>
+          <div className="flex flex-col md:items-end gap-2 text-center md:text-right">
+            <div className="flex items-center gap-4 text-sm">
+              <a href="#about" className="text-muted-foreground hover:text-primary transition-colors">About</a>
+              <a href="#roi" className="text-muted-foreground hover:text-primary transition-colors">ROI</a>
+              <a href="https://wa.me/971569510061" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">WhatsApp</a>
+              <a href="mailto:beura.shekhar@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">Email</a>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              © {new Date().getFullYear()} Ivori Portfolio Real Estate L.L.C. All rights reserved.
+            </p>
+          </div>
         </div>
       </div>
     </section>

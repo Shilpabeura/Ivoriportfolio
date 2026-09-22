@@ -22,7 +22,7 @@ const Hero = () => {
             transition={{ duration: 1, ease: "easeOut" }}
           >
             <p className="text-primary font-body text-xs tracking-[0.4em] uppercase mb-6">
-              Dubai Real Estate · Investment Advisory
+              Ivori · Dubai Real Estate Investment Advisory
             </p>
 
             <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-[1.1] mb-6">
@@ -43,7 +43,7 @@ const Hero = () => {
                 href="#contact"
                 className="flex items-center gap-3 bg-gradient-gold text-primary-foreground px-8 py-4 rounded-full text-base font-semibold hover:opacity-90 transition-all shadow-gold"
               >
-                Connect with Shekhar
+                Talk to Ivori
               </a>
               <a
                 href="#roi"
@@ -65,7 +65,7 @@ const Hero = () => {
                   Shekhar Beura
                 </p>
                 <p className="text-xs text-muted-foreground tracking-wide">
-                  Real Estate Advisor
+                  Founder &amp; Lead Advisor, Ivori
                 </p>
               </div>
             </div>
