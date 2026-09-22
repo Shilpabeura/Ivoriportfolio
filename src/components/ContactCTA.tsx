@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import { Mail } from "lucide-react";
 import shekharPhoto from "@/assets/shekhar-profile.jpg";
 import dubaiHero from "@/assets/dubai-hero.jpg";
-import ivoriLogo from "@/assets/ivori-logo.png.asset.json";
 
 const ContactCTA = () => {
   return (
@@ -112,7 +111,7 @@ const ContactCTA = () => {
       <div className="mt-20 border-t border-border pt-8">
         <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex flex-col items-center md:items-start gap-2">
-            <img src={ivoriLogo.url} alt="Ivori" className="h-7 w-auto" />
+            <img src="/ivori-logo.png" alt="Ivori" className="h-7 w-auto" />
             <span className="text-muted-foreground text-xs">
               Dubai real estate investment advisory
             </span>

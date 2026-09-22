@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import ivoriLogo from "@/assets/ivori-logo.png.asset.json";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -20,7 +19,7 @@ const Navbar = () => {
     >
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
         <a href="#" aria-label="Ivori home" className="flex items-center">
-          <img src={ivoriLogo.url} alt="Ivori" className="h-8 w-auto" />
+          <img src="/ivori-logo.png" alt="Ivori" className="h-8 w-auto" />
         </a>
 
         <div className="hidden md:flex items-center gap-8">
