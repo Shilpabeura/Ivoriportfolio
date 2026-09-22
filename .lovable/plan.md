@@ -28,11 +28,10 @@ These are suggestions — tell me which ones you want.
 ## Technical notes
 
 - Logo added via `lovable-assets` from the uploaded PNG, imported as a pointer and used as an `<img>` in `Navbar.tsx` and the footer in `ContactCTA.tsx`; favicon written as a real square PNG in `public/`.
-- Touched files: `Navbar.tsx`, `Hero.tsx`, `ContactCTA.tsx`, `index.html`, plus new `About.tsx` / `HowWeWork.tsx` and a mount in `pages/Index.tsx` for whichever new sections you approve.
+- Touched files: `Navbar.tsx`, `Hero.tsx`, `ContactCTA.tsx`, `index.html`, plus a new `About.tsx` mounted in `pages/Index.tsx`.
 - Project memory updated: brand is Ivori, Shekhar is Founder & Lead Advisor.
 
 ## Open questions
 
-- Is the full legal/display name just **Ivori**, or Ivori Real Estate / Ivori Properties?
-- Which of the new sections do you want: About + founder's note, How We Work, trust strip — all, or a subset?
-- Do you have a company email, RERA number, or founding year I should use? If not, I'll leave those out rather than make them up.
+- The legal company name is **Ivori Portfolio Real Estate L.L.C**; the supplied **ivori** wordmark will be the primary display brand.
+- Add only the **About Ivori** section with a founder's note; do not add How We Work or a trust strip.
