@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { MessageCircle } from "lucide-react";
+import ivoriLogo from "@/assets/ivori-logo.png.asset.json";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -19,18 +19,14 @@ const Navbar = () => {
       }`}
     >
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div>
-            <h1 className="font-display text-xl font-bold text-foreground tracking-wide">
-              Shekhar Beura
-            </h1>
-            <p className="text-[10px] text-muted-foreground tracking-[0.2em] uppercase">
-              Real Estate Advisor
-            </p>
-          </div>
-        </div>
+        <a href="#" aria-label="Ivori home" className="flex items-center">
+          <img src={ivoriLogo.url} alt="Ivori" className="h-8 w-auto" />
+        </a>
 
         <div className="hidden md:flex items-center gap-8">
+          <a href="#about" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+            About
+          </a>
           <a href="#why" className="text-sm text-muted-foreground hover:text-primary transition-colors">
             Why Dubai
           </a>
@@ -50,7 +46,7 @@ const Navbar = () => {
             href="https://wa.me/971569510061"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Chat with Shekhar on WhatsApp"
+            aria-label="Chat with Ivori on WhatsApp"
             className="group flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-full text-sm font-semibold hover:shadow-gold hover:opacity-90 transition-all cursor-pointer"
           >
             <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4" aria-hidden="true">
