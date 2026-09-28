@@ -23,9 +23,6 @@ const Navbar = () => {
         </a>
 
         <div className="hidden md:flex items-center gap-8">
-          <a href="#about" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-            About
-          </a>
           <a href="#why" className="text-sm text-muted-foreground hover:text-primary transition-colors">
             Why Dubai
           </a>
