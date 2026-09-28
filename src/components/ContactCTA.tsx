@@ -118,7 +118,6 @@ const ContactCTA = () => {
           </div>
           <div className="flex flex-col md:items-end gap-2 text-center md:text-right">
             <div className="flex items-center gap-4 text-sm">
-              <a href="#about" className="text-muted-foreground hover:text-primary transition-colors">About</a>
               <a href="#roi" className="text-muted-foreground hover:text-primary transition-colors">ROI</a>
               <a href="https://wa.me/971569510061" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">WhatsApp</a>
               <a href="mailto:beura.shekhar@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">Email</a>
