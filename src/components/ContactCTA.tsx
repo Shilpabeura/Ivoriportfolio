@@ -95,7 +95,7 @@ const ContactCTA = () => {
                     <div>
                       <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Email</p>
                       <p className="text-foreground text-sm font-medium">
-                        beura.shekhar@gmail.com
+                        shekhar@ivoriportfolio.com
                       </p>
                     </div>
                   </div>
@@ -120,7 +120,7 @@ const ContactCTA = () => {
             <div className="flex items-center gap-4 text-sm">
               <a href="#roi" className="text-muted-foreground hover:text-primary transition-colors">ROI</a>
               <a href="https://wa.me/971569510061" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">WhatsApp</a>
-              <a href="mailto:beura.shekhar@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">Email</a>
+              <a href="mailto:shekhar@ivoriportfolio.com" className="text-muted-foreground hover:text-primary transition-colors">Email</a>
             </div>
             <p className="text-xs text-muted-foreground">
               © {new Date().getFullYear()} Ivori Portfolio Real Estate L.L.C. All rights reserved.
