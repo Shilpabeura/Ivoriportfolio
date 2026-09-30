@@ -43,7 +43,7 @@ const WhyDifferent = () => {
             transition={{ duration: 0.8 }}
             className="relative"
           >
-            <div className="rounded-2xl overflow-hidden shadow-elevated">
+            <div className="rounded-none overflow-hidden shadow-elevated">
               <img
                 src={dubaiSkyline}
                 alt="Dubai futuristic skyline"
@@ -51,7 +51,7 @@ const WhyDifferent = () => {
                 loading="lazy"
               />
             </div>
-            <div className="absolute -bottom-4 -right-4 w-24 h-24 border-2 border-primary/20 rounded-2xl" />
+            <div className="absolute -bottom-4 -right-4 w-24 h-24 border border-foreground/30 rounded-none" />
           </motion.div>
 
           <motion.div
@@ -65,7 +65,7 @@ const WhyDifferent = () => {
             </p>
             <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
               Why Dubai Continues to{" "}
-              <span className="text-gradient-gold">Outperform Global{"\u00A0"}Markets</span>
+              <em className="accent-word">Outperform Global{"\u00A0"}Markets</em>
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed mb-3">
               Dubai isn't just growing — it's accelerating.
@@ -88,11 +88,11 @@ const WhyDifferent = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className={`bg-background rounded-xl p-8 border border-border hover:border-primary/30 transition-all duration-500 group shadow-card ${
+              className={`bg-background rounded-lg p-8 border border-border hover:border-foreground/40 transition-all duration-500 group shadow-card ${
                 index === 4 ? "md:col-span-2 lg:col-span-1 lg:col-start-2" : ""
               }`}
             >
-              <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center mb-5 group-hover:bg-primary/10 transition-colors">
+              <div className="w-12 h-12 rounded-none bg-secondary border border-border flex items-center justify-center mb-5 group-hover:bg-primary/10 transition-colors">
                 <reason.icon className="w-6 h-6 text-primary" />
               </div>
               <h3 className="font-display text-xl font-semibold text-foreground mb-3">

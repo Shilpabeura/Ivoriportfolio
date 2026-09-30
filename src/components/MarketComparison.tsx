@@ -62,7 +62,7 @@ const MarketComparison = () => {
           {DUBAI_SNAPSHOT.map((s) => (
             <div
               key={s.label}
-              className="rounded-2xl bg-gradient-gold p-5 text-primary-foreground shadow-lg"
+              className="rounded-none bg-foreground text-background p-5 shadow-press"
             >
               <s.icon className="w-5 h-5 mb-3 opacity-80" />
               <div className="font-display text-lg font-bold leading-tight">{s.label}</div>
@@ -77,9 +77,9 @@ const MarketComparison = () => {
             <button
               key={c}
               onClick={() => setSelected(c)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+              className={`px-4 py-2 rounded-none text-sm font-medium transition-all ${
                 selected === c
-                  ? "bg-foreground text-background shadow-md"
+                  ? "bg-foreground text-background shadow-press"
                   : "bg-background text-muted-foreground hover:text-foreground border border-border"
               }`}
             >
@@ -96,14 +96,14 @@ const MarketComparison = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.25 }}
-            className="rounded-3xl bg-background border border-border overflow-hidden shadow-xl"
+            className="rounded-none bg-background border border-border overflow-hidden shadow-elevated"
           >
             {/* Column headers */}
             <div className="grid grid-cols-[1.2fr_1fr_1fr] bg-secondary/50">
               <div className="p-4 text-xs uppercase tracking-wider text-muted-foreground font-semibold">
                 Parameter
               </div>
-              <div className="p-4 border-l border-border bg-gradient-gold/10">
+              <div className="p-4 border-l border-border bg-primary/10">
                 <div className="text-[10px] tracking-[0.2em] uppercase text-primary font-bold">
                   Dubai
                 </div>
@@ -130,7 +130,7 @@ const MarketComparison = () => {
                     className="grid grid-cols-[1.2fr_1fr_1fr] hover:bg-secondary/30 transition-colors"
                   >
                     <div className="p-4 text-sm font-medium text-foreground">{p.label}</div>
-                    <div className="p-4 border-l border-border bg-gradient-gold/5 text-sm text-foreground flex items-start gap-2">
+                    <div className="p-4 border-l border-border bg-primary/5 text-sm text-foreground flex items-start gap-2">
                       {wins && (
                         <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
                       )}
@@ -148,14 +148,14 @@ const MarketComparison = () => {
 
         {/* Full matrix */}
         <Collapsible open={open} onOpenChange={setOpen} className="mt-10">
-          <CollapsibleTrigger className="mx-auto flex items-center gap-2 px-5 py-2.5 rounded-full bg-background border border-border text-sm font-medium hover:border-primary transition-colors">
+          <CollapsibleTrigger className="mx-auto flex items-center gap-2 px-5 py-2.5 rounded-none bg-background border border-border text-sm font-medium hover:border-foreground transition-colors">
             {open ? "Hide" : "View"} all {data.countries.length} markets
             <ChevronDown
               className={`w-4 h-4 transition-transform ${open ? "rotate-180" : ""}`}
             />
           </CollapsibleTrigger>
           <CollapsibleContent className="mt-6">
-            <div className="rounded-2xl bg-background border border-border overflow-hidden">
+            <div className="rounded-none bg-background border border-border overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead className="bg-secondary/50">
@@ -168,7 +168,7 @@ const MarketComparison = () => {
                           key={c}
                           className={`p-3 text-left text-xs font-bold whitespace-nowrap ${
                             c === DUBAI_KEY
-                              ? "bg-gradient-gold/15 text-primary"
+                              ? "bg-primary/10 text-primary"
                               : "text-foreground"
                           }`}
                         >
@@ -188,7 +188,7 @@ const MarketComparison = () => {
                             key={c}
                             className={`p-3 align-top whitespace-nowrap ${
                               c === DUBAI_KEY
-                                ? "bg-gradient-gold/5 text-foreground font-medium"
+                                ? "bg-primary/5 text-foreground font-medium"
                                 : "text-muted-foreground"
                             }`}
                           >
@@ -207,7 +207,7 @@ const MarketComparison = () => {
         {/* Closing quote */}
         {data.quote && (
           <div className="mt-16 max-w-3xl mx-auto text-center">
-            <div className="h-px w-16 bg-gradient-gold mx-auto mb-6" />
+            <div className="h-px w-16 bg-foreground/40 mx-auto mb-6" />
             <p className="font-display italic text-xl md:text-2xl text-foreground leading-relaxed">
               "{data.quote}"
             </p>

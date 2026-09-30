@@ -23,20 +23,20 @@ const TIER_META: Record<Tier, { label: string; definition: string; color: string
   1: {
     label: "Tier 1",
     definition: "Highest Growth Potential",
-    color: "bg-[#6366f1]/30 border-[#6366f1]/60",
-    ring: "ring-[#6366f1]/40",
+    color: "bg-[#2C3E50]/30 border-[#2C3E50]/70",
+    ring: "ring-[#2C3E50]/40",
   },
   2: {
     label: "Tier 2",
     definition: "Strong Growth Potential",
-    color: "bg-[#f59e0b]/30 border-[#f59e0b]/60",
-    ring: "ring-[#f59e0b]/40",
+    color: "bg-[#1A1A1A]/25 border-[#1A1A1A]/55",
+    ring: "ring-[#1A1A1A]/40",
   },
   3: {
     label: "Tier 3",
     definition: "Mature Growth Potential",
-    color: "bg-[#a3a380]/30 border-[#a3a380]/60",
-    ring: "ring-[#a3a380]/40",
+    color: "bg-[#4A4A4A]/25 border-[#4A4A4A]/55",
+    ring: "ring-[#4A4A4A]/40",
   },
 };
 
@@ -85,7 +85,7 @@ const GrowthMap = () => {
           </p>
           <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
             Where Dubai's Capital{" "}
-            <span className="text-gradient-gold">Is Concentrating</span>
+            <em className="accent-word">Is Concentrating</em>
           </h2>
           <p className="text-muted-foreground text-lg">
             Explore the city's highest-conviction investment zones — tap any hotspot for the full outlook.
@@ -99,7 +99,7 @@ const GrowthMap = () => {
             return (
               <div
                 key={t}
-                className="flex items-center gap-2 px-4 py-2 rounded-full bg-background border border-border text-sm"
+                className="flex items-center gap-2 px-4 py-2 rounded-none bg-background border border-border text-sm"
               >
                 <span className={`w-3 h-3 rounded-full border ${meta.color}`} />
                 <span className="font-medium text-foreground">{meta.label}</span>
@@ -115,7 +115,7 @@ const GrowthMap = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.1 }}
-          className="relative w-full rounded-2xl overflow-hidden shadow-elevated border border-border bg-background"
+          className="relative w-full rounded-none overflow-hidden shadow-elevated border border-border bg-background"
         >
           <div className="relative w-full" style={{ aspectRatio: "1920 / 1023" }}>
             <img
@@ -159,7 +159,7 @@ const GrowthMap = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 6 }}
                   transition={{ duration: 0.15 }}
-                  className="absolute z-20 pointer-events-none w-60 -translate-x-1/2 -translate-y-[calc(100%+16px)] bg-background border border-border shadow-xl rounded-xl p-4"
+                  className="absolute z-20 pointer-events-none w-60 -translate-x-1/2 -translate-y-[calc(100%+16px)] bg-background border border-border shadow-elevated rounded-none p-4"
                   style={{ left: `${hovered.x}%`, top: `${hovered.y}%` }}
                 >
                   <div className="text-[10px] tracking-[0.2em] uppercase text-primary font-bold mb-1">
@@ -202,7 +202,7 @@ const GrowthMap = () => {
                     exit={{ scale: 0.95, y: 10 }}
                     transition={{ duration: 0.2 }}
                     onClick={(e) => e.stopPropagation()}
-                    className="bg-background border border-border rounded-2xl shadow-elevated w-full max-w-md p-6 md:p-8 relative"
+                    className="bg-background border border-border rounded-none shadow-elevated w-full max-w-md p-6 md:p-8 relative"
                   >
                     <button
                       onClick={() => setActive(null)}
@@ -220,13 +220,13 @@ const GrowthMap = () => {
                     </h3>
 
                     <div className="grid grid-cols-2 gap-3 mb-5">
-                      <div className="rounded-xl border border-border p-4">
+                      <div className="rounded-none border border-border p-4">
                         <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
                           <TrendingUp className="w-3.5 h-3.5" /> 5-Year Outlook
                         </div>
                         <Stars count={active.fiveYear} />
                       </div>
-                      <div className="rounded-xl border border-border p-4">
+                      <div className="rounded-none border border-border p-4">
                         <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
                           <TrendingUp className="w-3.5 h-3.5" /> 10-Year Outlook
                         </div>
@@ -235,14 +235,14 @@ const GrowthMap = () => {
                     </div>
 
                     <div className="space-y-3">
-                      <div className="flex items-start gap-3 rounded-xl bg-muted/40 p-4">
+                      <div className="flex items-start gap-3 rounded-none bg-secondary border border-border p-4">
                         <Shield className="w-4 h-4 text-primary mt-0.5" />
                         <div className="flex-1">
                           <div className="text-xs text-muted-foreground">Risk Level</div>
                           <div className="font-medium text-foreground">{active.risk}</div>
                         </div>
                       </div>
-                      <div className="flex items-start gap-3 rounded-xl bg-muted/40 p-4">
+                      <div className="flex items-start gap-3 rounded-none bg-secondary border border-border p-4">
                         <Target className="w-4 h-4 text-primary mt-0.5" />
                         <div className="flex-1">
                           <div className="text-xs text-muted-foreground">Ideal For</div>
@@ -263,7 +263,7 @@ const GrowthMap = () => {
             <button
               key={r.id}
               onClick={() => setActive(r)}
-              className="text-left p-3 rounded-lg bg-background border border-border hover:border-primary/40 transition-colors"
+              className="text-left p-3 rounded-none bg-background border border-border hover:border-foreground/40 transition-colors"
             >
               <div className="text-[10px] tracking-wider uppercase text-primary">
                 {TIER_META[r.tier].label}
