@@ -56,7 +56,7 @@ const ROICalculator = () => {
 
   return (
     <section id="roi" className="py-24 md:py-32 bg-section-alt relative overflow-hidden">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-[1px] bg-gradient-gold opacity-40" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-px bg-foreground/30" />
 
       <div className="container mx-auto px-6">
         <motion.div
@@ -70,7 +70,7 @@ const ROICalculator = () => {
             Interactive Analysis
           </p>
           <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-6">
-            ROI Comparison — <span className="text-gradient-gold">5 Year{"\u00A0"}Horizon</span>
+            ROI Comparison — <em className="accent-word">5 Year{"\u00A0"}Horizon</em>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Off-plan vs Ready · Based on Dubai industry data · Adjust property value to model your scenario
@@ -84,7 +84,7 @@ const ROICalculator = () => {
           viewport={{ once: true }}
           className="max-w-4xl mx-auto mb-12"
         >
-          <div className="bg-background rounded-xl p-8 border border-border shadow-card">
+          <div className="bg-background rounded-none p-8 border border-border shadow-card">
             <div className="flex items-center gap-3 mb-6">
               <Calculator className="w-5 h-5 text-primary" />
               <h3 className="font-display text-lg font-semibold text-foreground">
@@ -94,7 +94,7 @@ const ROICalculator = () => {
             <div className="space-y-4">
               <div className="flex items-baseline justify-between">
                 <span className="text-sm text-muted-foreground">AED</span>
-                <span className="font-display text-4xl font-bold text-gradient-gold">
+                <span className="font-display text-4xl font-bold text-primary">
                   {formatCurrency(propertyValue)}
                 </span>
               </div>
@@ -105,7 +105,7 @@ const ROICalculator = () => {
                 step={100000}
                 value={propertyValue}
                 onChange={(e) => setPropertyValue(Number(e.target.value))}
-                className="w-full h-2 rounded-full appearance-none cursor-pointer bg-secondary [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:shadow-gold [&::-webkit-slider-thumb]:cursor-pointer"
+                className="w-full h-2 rounded-full appearance-none cursor-pointer bg-secondary [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-none [&::-webkit-slider-thumb]:bg-foreground [&::-webkit-slider-thumb]:shadow-press [&::-webkit-slider-thumb]:cursor-pointer"
               />
               <div className="flex justify-between text-xs text-muted-foreground">
                 <span>AED 500K</span>
@@ -122,9 +122,9 @@ const ROICalculator = () => {
               <button
                 key={p.plan}
                 onClick={() => setSelectedPlan(p.plan)}
-                className={`px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 ${
+                className={`px-6 py-3 rounded-none text-sm font-semibold transition-all duration-300 ${
                   selectedPlan === p.plan
-                    ? "bg-gradient-gold text-primary-foreground shadow-gold"
+                    ? "bg-foreground text-background shadow-press"
                     : "bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border"
                 }`}
               >
@@ -153,7 +153,7 @@ const ROICalculator = () => {
             ].map((item) => (
                <div
                  key={item.label}
-                 className={`rounded-xl p-6 text-center border shadow-card ${
+                 className={`rounded-none p-6 text-center border shadow-card ${
                    item.highlight
                      ? "bg-primary/5 border-primary/30"
                      : "bg-background border-border"
@@ -164,7 +164,7 @@ const ROICalculator = () => {
                 </p>
                 <p
                   className={`font-display text-xl md:text-2xl font-bold ${
-                    item.highlight ? "text-gradient-gold" : "text-foreground"
+                    item.highlight ? "text-primary" : "text-foreground"
                   }`}
                 >
                   {item.value}
@@ -181,7 +181,7 @@ const ROICalculator = () => {
           viewport={{ once: true }}
           className="max-w-6xl mx-auto mb-10"
         >
-          <div className="bg-background rounded-xl border border-border shadow-card overflow-hidden">
+          <div className="bg-background rounded-none border border-border shadow-card overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
@@ -250,7 +250,7 @@ const ROICalculator = () => {
             <TrendingUp className="w-5 h-5 text-primary" />
             Year-by-Year Breakdown ({selectedCalc.type === "ready" ? "Ready Property" : `Off-Plan ${selectedCalc.plan}`})
           </h3>
-          <div className="bg-background rounded-xl border border-border shadow-card overflow-hidden">
+          <div className="bg-background rounded-none border border-border shadow-card overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
@@ -283,7 +283,7 @@ const ROICalculator = () => {
           viewport={{ once: true }}
           className="max-w-6xl mx-auto"
         >
-          <details className="group bg-secondary/50 rounded-xl border border-border overflow-hidden">
+          <details className="group bg-secondary/50 rounded-none border border-border overflow-hidden">
             <summary className="flex items-center justify-between gap-3 p-5 cursor-pointer list-none">
               <div className="flex items-center gap-2">
                 <Info className="w-4 h-4 text-primary" />
