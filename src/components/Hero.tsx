@@ -9,8 +9,8 @@ const Hero = () => {
       {/* Background — clean white with subtle texture */}
       <div className="absolute inset-0 bg-background" />
 
-      {/* Decorative gold line */}
-      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-gold opacity-40" />
+      {/* Hairline ink rule */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-foreground/20" />
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6 pt-28 pb-20">
@@ -28,7 +28,7 @@ const Hero = () => {
             <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-[1.1] mb-6">
               The Smart Money Is
               <br />
-              <span className="text-gradient-gold">Moving to{"\u00A0"}Dubai</span>
+              <em className="accent-word">Moving to{"\u00A0"}Dubai</em>
             </h1>
 
             <p className="text-muted-foreground text-lg md:text-xl max-w-xl mb-4 font-light leading-relaxed">
@@ -41,7 +41,7 @@ const Hero = () => {
             <div className="flex flex-col sm:flex-row items-start gap-4 mb-12">
               <a
                 href="#contact"
-                className="flex items-center gap-3 bg-gradient-gold text-primary-foreground px-8 py-4 rounded-full text-base font-semibold hover:opacity-90 transition-all shadow-gold"
+                className="flex items-center gap-3 bg-foreground text-background px-8 py-4 rounded-full text-base font-semibold hover:opacity-90 transition-all shadow-press"
               >
                 Talk to Ivori
               </a>
@@ -78,7 +78,7 @@ const Hero = () => {
             transition={{ duration: 1.2, delay: 0.3 }}
             className="relative hidden lg:block"
           >
-            <div className="relative rounded-2xl overflow-hidden shadow-elevated">
+            <div className="relative rounded-none overflow-hidden shadow-elevated">
               <img
                 src={dubaiMarina}
                 alt="Dubai Marina luxury waterfront"
@@ -92,10 +92,10 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1, duration: 0.6 }}
-              className="absolute -bottom-6 -left-6 bg-background rounded-xl p-5 shadow-elevated border border-border"
+              className="absolute -bottom-6 -left-6 bg-background rounded-none p-5 shadow-elevated border border-border"
             >
-              <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Avg. ROI</p>
-              <p className="font-display text-3xl font-bold text-gradient-gold">50%+</p>
+              <p className="label-folio mb-1">Avg. ROI</p>
+              <p className="font-display text-3xl font-bold text-primary">50%+</p>
               <p className="text-xs text-muted-foreground mt-1">Based on last 5 year trend</p>
             </motion.div>
           </motion.div>
