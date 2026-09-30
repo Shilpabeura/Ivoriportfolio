@@ -52,7 +52,7 @@ const InvestorBenefits = () => {
               </p>
               <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
                 What This{"\u00A0"}Means{" "}
-                <span className="text-gradient-gold">For{"\u00A0"}You</span>
+                <em className="accent-word">For{"\u00A0"}You</em>
               </h2>
               <p className="text-muted-foreground text-lg">
                 You don't need millions to start — you need clarity.
@@ -67,10 +67,10 @@ const InvestorBenefits = () => {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-background rounded-xl p-6 border border-border hover:border-primary/30 transition-all duration-500 group shadow-card"
+                  className="bg-background rounded-lg p-6 border border-border hover:border-foreground/40 transition-all duration-500 group shadow-card"
                 >
                   <div className="flex items-start gap-5">
-                    <div className="w-11 h-11 rounded-lg bg-muted flex items-center justify-center flex-shrink-0 group-hover:bg-primary/10 transition-colors">
+                    <div className="w-11 h-11 rounded-none bg-secondary border border-border flex items-center justify-center flex-shrink-0 group-hover:bg-primary/10 transition-colors">
                       <benefit.icon className="w-5 h-5 text-primary" />
                     </div>
                     <div className="flex-1 min-w-0">
@@ -79,7 +79,7 @@ const InvestorBenefits = () => {
                           {benefit.title}
                         </h3>
                         <div className="text-right flex-shrink-0 ml-4">
-                          <span className="font-display text-xl font-bold text-gradient-gold">
+                          <span className="font-display text-xl font-bold text-primary">
                             {benefit.stat}
                           </span>
                         </div>
@@ -102,7 +102,7 @@ const InvestorBenefits = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="sticky top-32 hidden lg:block"
           >
-            <div className="rounded-2xl overflow-hidden shadow-elevated">
+            <div className="rounded-none overflow-hidden shadow-elevated">
               <img
                 src={dubaiInterior}
                 alt="Luxury Dubai villa interior"
@@ -110,8 +110,8 @@ const InvestorBenefits = () => {
                 loading="lazy"
               />
             </div>
-            <div className="mt-6 p-6 bg-background rounded-xl border border-border shadow-card">
-              <p className="text-xs text-muted-foreground uppercase tracking-wider mb-2">
+            <div className="mt-6 p-6 bg-background rounded-none border border-border shadow-card">
+              <p className="label-folio mb-2">
                 Investment starts from
               </p>
               <p className="font-display text-2xl font-bold text-foreground">
