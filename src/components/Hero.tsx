@@ -21,10 +21,6 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
           >
-            <p className="text-primary font-body text-xs tracking-[0.4em] uppercase mb-6">
-              Ivori · Dubai Real Estate Investment Advisory
-            </p>
-
             <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-[1.1] mb-6">
               The Smart Money Is
               <br />
