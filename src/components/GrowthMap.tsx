@@ -5,6 +5,8 @@ import dubaiMap from "@/assets/dubai-growth-map.png";
 
 type Tier = 1 | 2 | 3;
 
+const TIER_SWATCH: Record<Tier, string> = { 1: "#686DF4", 2: "#C27D19", 3: "#B9B066" };
+
 interface Region {
   id: number;
   name: string;
@@ -47,8 +49,8 @@ const REGIONS: Region[] = [
   { id: 4, name: "Dubai Hills Estate", tier: 2, fiveYear: 4, tenYear: 4, risk: "Low-Medium", idealFor: "Balance of Yield and Growth", x: 49.62, y: 38.47, size: 5 },
   { id: 5, name: "Dubai Silicon Oasis", tier: 2, fiveYear: 4, tenYear: 4, risk: "Low-Medium", idealFor: "Balance of Yield and Growth", x: 60.01, y: 34.61, size: 5 },
   { id: 6, name: "Meydan / MBR City", tier: 2, fiveYear: 4, tenYear: 4, risk: "Low-Medium", idealFor: "Balance of Yield and Growth", x: 53.24, y: 30.37, size: 5 },
-  { id: 7, name: "Downtown Dubai", tier: 3, fiveYear: 4, tenYear: 4, risk: "Low", idealFor: "Income and Wealth Preservation", x: 52.59, y: 15.95, size: 4 },
-  { id: 8, name: "Business Bay", tier: 3, fiveYear: 4, tenYear: 4, risk: "Low", idealFor: "Income and Wealth Preservation", x: 50.96, y: 21.11, size: 4 },
+  { id: 7, name: "Downtown Dubai", tier: 3, fiveYear: 4, tenYear: 4, risk: "Low", idealFor: "Income and Wealth Preservation", x: 52.24, y: 13.88, size: 4 },
+  { id: 8, name: "Business Bay", tier: 3, fiveYear: 4, tenYear: 4, risk: "Low", idealFor: "Income and Wealth Preservation", x: 49.58, y: 23.07, size: 4 },
   { id: 9, name: "Dubai Marina", tier: 3, fiveYear: 4, tenYear: 4, risk: "Low", idealFor: "Income and Wealth Preservation", x: 45.39, y: 25.71, size: 4 },
   { id: 10, name: "Palm Jumeirah", tier: 3, fiveYear: 4, tenYear: 4, risk: "Low", idealFor: "Income and Wealth Preservation", x: 34.68, y: 38.5, size: 5 },
 ];
@@ -101,7 +103,7 @@ const GrowthMap = () => {
                 key={t}
                 className="flex items-center gap-2 px-4 py-2 rounded-none bg-background border border-border text-sm"
               >
-                <span className={`w-3 h-3 rounded-full border ${meta.color}`} />
+                <span className="w-3 h-3 rounded-full" style={{ backgroundColor: TIER_SWATCH[t as Tier] }} />
                 <span className="font-medium text-foreground">{meta.label}</span>
                 <span className="text-muted-foreground hidden sm:inline">— {meta.definition}</span>
               </div>
@@ -256,19 +258,37 @@ const GrowthMap = () => {
           </div>
         </motion.div>
 
-        {/* Mobile-friendly region list */}
-        <div className="mt-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 lg:hidden">
-          {REGIONS.map((r) => (
-            <button
-              key={r.id}
-              onClick={() => setActive(r)}
-              className="text-left p-3 rounded-none bg-background border border-border hover:border-foreground/40 transition-colors"
-            >
-              <div className="text-[10px] tracking-wider uppercase text-primary">
-                {TIER_META[r.tier].label}
+        {/* Zone ledger */}
+        <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-px bg-border border border-border">
+          {([1, 2, 3] as Tier[]).map((t) => (
+            <div key={t} className="bg-background p-6">
+              <div className="flex items-center gap-3 pb-4 mb-2 border-b border-border">
+                <span className="w-3 h-3 rounded-full" style={{ backgroundColor: TIER_SWATCH[t] }} />
+                <span className="label-folio !text-foreground font-semibold">{TIER_META[t].label}</span>
+                <span className="text-xs text-muted-foreground">{TIER_META[t].definition}</span>
               </div>
-              <div className="text-sm font-medium text-foreground">{r.name}</div>
-            </button>
+              <ul>
+                {REGIONS.filter((r) => r.tier === t).map((r) => (
+                  <li key={r.id}>
+                    <button
+                      onClick={() => setActive(r)}
+                      onMouseEnter={() => setHovered(r)}
+                      onMouseLeave={() => setHovered(null)}
+                      className="w-full flex items-center gap-4 py-3 min-h-[44px] text-left border-b border-border/60 last:border-0 group"
+                    >
+                      <span
+                        className="w-7 h-7 shrink-0 rounded-full flex items-center justify-center text-xs font-semibold text-primary-foreground"
+                        style={{ backgroundColor: TIER_SWATCH[t] }}
+                      >
+                        {r.id}
+                      </span>
+                      <span className="flex-1 font-display text-lg text-foreground group-hover:italic">{r.name}</span>
+                      <span className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground">{r.risk} risk</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
         </div>
       </div>
