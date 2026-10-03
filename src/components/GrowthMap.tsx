@@ -41,16 +41,16 @@ const TIER_META: Record<Tier, { label: string; definition: string; color: string
 };
 
 const REGIONS: Region[] = [
-  { id: 1, name: "Dubai South", tier: 1, fiveYear: 5, tenYear: 5, risk: "Medium", idealFor: "Capital Appreciation (long term)", x: 37.2, y: 87, size: 9 },
-  { id: 2, name: "Expo City Dubai", tier: 1, fiveYear: 5, tenYear: 5, risk: "Medium", idealFor: "Capital Appreciation (long term)", x: 36.6, y: 73.3, size: 5 },
-  { id: 3, name: "Dubai Land", tier: 1, fiveYear: 5, tenYear: 5, risk: "Medium", idealFor: "Capital Appreciation (long term)", x: 58.6, y: 45, size: 7 },
-  { id: 4, name: "Dubai Hills Estate", tier: 2, fiveYear: 4, tenYear: 4, risk: "Low-Medium", idealFor: "Balance of Yield and Growth", x: 50.8, y: 38.6, size: 5 },
-  { id: 5, name: "Dubai Silicon Oasis", tier: 2, fiveYear: 4, tenYear: 4, risk: "Low-Medium", idealFor: "Balance of Yield and Growth", x: 59.9, y: 34.7, size: 5 },
-  { id: 6, name: "Meydan / MBR City", tier: 2, fiveYear: 4, tenYear: 4, risk: "Low-Medium", idealFor: "Balance of Yield and Growth", x: 53.4, y: 30.3, size: 5 },
-  { id: 7, name: "Downtown Dubai", tier: 3, fiveYear: 4, tenYear: 4, risk: "Low", idealFor: "Income and Wealth Preservation", x: 52.2, y: 13.7, size: 4 },
-  { id: 8, name: "Business Bay", tier: 3, fiveYear: 4, tenYear: 4, risk: "Low", idealFor: "Income and Wealth Preservation", x: 51, y: 23, size: 4 },
-  { id: 9, name: "Dubai Marina", tier: 3, fiveYear: 4, tenYear: 4, risk: "Low", idealFor: "Income and Wealth Preservation", x: 46.4, y: 25.4, size: 4 },
-  { id: 10, name: "Palm Jumeirah", tier: 3, fiveYear: 4, tenYear: 4, risk: "Low", idealFor: "Income and Wealth Preservation", x: 34.6, y: 38.1, size: 5 },
+  { id: 1, name: "Dubai South", tier: 1, fiveYear: 5, tenYear: 5, risk: "Medium", idealFor: "Capital Appreciation (long term)", x: 37.18, y: 87.2, size: 9 },
+  { id: 2, name: "Expo City Dubai", tier: 1, fiveYear: 5, tenYear: 5, risk: "Medium", idealFor: "Capital Appreciation (long term)", x: 36.71, y: 73.37, size: 5 },
+  { id: 3, name: "Dubai Land", tier: 1, fiveYear: 5, tenYear: 5, risk: "Medium", idealFor: "Capital Appreciation (long term)", x: 58.68, y: 44.79, size: 7 },
+  { id: 4, name: "Dubai Hills Estate", tier: 2, fiveYear: 4, tenYear: 4, risk: "Low-Medium", idealFor: "Balance of Yield and Growth", x: 49.62, y: 38.47, size: 5 },
+  { id: 5, name: "Dubai Silicon Oasis", tier: 2, fiveYear: 4, tenYear: 4, risk: "Low-Medium", idealFor: "Balance of Yield and Growth", x: 60.01, y: 34.61, size: 5 },
+  { id: 6, name: "Meydan / MBR City", tier: 2, fiveYear: 4, tenYear: 4, risk: "Low-Medium", idealFor: "Balance of Yield and Growth", x: 53.24, y: 30.37, size: 5 },
+  { id: 7, name: "Downtown Dubai", tier: 3, fiveYear: 4, tenYear: 4, risk: "Low", idealFor: "Income and Wealth Preservation", x: 52.59, y: 15.95, size: 4 },
+  { id: 8, name: "Business Bay", tier: 3, fiveYear: 4, tenYear: 4, risk: "Low", idealFor: "Income and Wealth Preservation", x: 50.96, y: 21.11, size: 4 },
+  { id: 9, name: "Dubai Marina", tier: 3, fiveYear: 4, tenYear: 4, risk: "Low", idealFor: "Income and Wealth Preservation", x: 45.39, y: 25.71, size: 4 },
+  { id: 10, name: "Palm Jumeirah", tier: 3, fiveYear: 4, tenYear: 4, risk: "Low", idealFor: "Income and Wealth Preservation", x: 34.68, y: 38.5, size: 5 },
 ];
 
 const Stars = ({ count }: { count: number }) => (
@@ -136,7 +136,7 @@ const GrowthMap = () => {
                   onMouseEnter={() => setHovered(r)}
                   onMouseLeave={() => setHovered(null)}
                   aria-label={`${r.name} — ${meta.label}`}
-                  className={`absolute -translate-x-1/2 -translate-y-1/2 rounded-full border-2 ${meta.color} backdrop-blur-[1px] transition-all duration-300 hover:scale-110 hover:ring-4 ${meta.ring} cursor-pointer`}
+                  className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-transparent bg-transparent transition-colors duration-200 hover:border-foreground/70 focus-visible:border-foreground/70 focus-visible:outline-none cursor-pointer"
                   style={{
                     left: `${r.x}%`,
                     top: `${r.y}%`,
@@ -145,7 +145,6 @@ const GrowthMap = () => {
                   }}
                 >
                   <span className="sr-only">{r.name}</span>
-                  <span className="absolute inset-0 rounded-full animate-ping opacity-20 bg-current" />
                 </button>
               );
             })}
