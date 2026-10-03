@@ -19,9 +19,9 @@ const Navbar = () => {
     >
       <div className="container mx-auto px-6 py-3 flex items-center justify-between">
         <a href="#" aria-label="Ivori home" className="flex items-center">
-          <div className="flex flex-col gap-0.5">
-            <img src="/ivori-logo.png" alt="Ivori" className="h-8 w-auto" />
-            <span className="text-[9px] tracking-[0.28em] uppercase text-muted-foreground leading-none">
+          <div className="flex flex-col items-start gap-1">
+            <img src="/ivori-logo.png" alt="Ivori" width={1306} height={210} className="h-8 w-auto max-w-none shrink-0 object-contain" />
+            <span className="text-[7.5px] tracking-[0.18em] uppercase text-muted-foreground leading-none whitespace-nowrap">
               Dubai Real Estate Investment Advisory
             </span>
           </div>
