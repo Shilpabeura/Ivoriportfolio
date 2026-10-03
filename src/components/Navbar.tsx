@@ -17,9 +17,14 @@ const Navbar = () => {
           : "bg-transparent"
       }`}
     >
-      <div className="container mx-auto px-6 py-4 flex items-center justify-between">
+      <div className="container mx-auto px-6 py-3 flex items-center justify-between">
         <a href="#" aria-label="Ivori home" className="flex items-center">
-          <img src="/ivori-logo.png" alt="Ivori" className="h-10 w-auto" />
+          <div className="flex flex-col gap-0.5">
+            <img src="/ivori-logo.png" alt="Ivori" className="h-8 w-auto" />
+            <span className="text-[9px] tracking-[0.28em] uppercase text-muted-foreground leading-none">
+              Dubai Real Estate Investment Advisory
+            </span>
+          </div>
         </a>
 
         <div className="hidden md:flex items-center gap-8">
