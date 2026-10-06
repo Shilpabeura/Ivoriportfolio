@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Star, Shield, TrendingUp, Target } from "lucide-react";
+import { X, Star, Shield, TrendingUp, Target, ChevronDown } from "lucide-react";
 import dubaiMap from "@/assets/dubai-growth-map.png";
 
 type Tier = 1 | 2 | 3;
@@ -71,6 +71,7 @@ const Stars = ({ count }: { count: number }) => (
 const GrowthMap = () => {
   const [active, setActive] = useState<Region | null>(null);
   const [hovered, setHovered] = useState<Region | null>(null);
+  const [legendOpen, setLegendOpen] = useState(false);
 
   return (
     <section id="map" className="py-24 md:py-32 bg-section-alt relative">
@@ -95,7 +96,7 @@ const GrowthMap = () => {
         </motion.div>
 
         {/* Tier legend */}
-        <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
+        <div className="hidden md:flex flex-wrap items-center justify-center gap-3 mb-8">
           {(Object.keys(TIER_META) as unknown as Tier[]).map((t) => {
             const meta = TIER_META[t as Tier];
             return (
@@ -119,7 +120,8 @@ const GrowthMap = () => {
           transition={{ duration: 0.8, delay: 0.1 }}
           className="relative w-full rounded-none overflow-hidden shadow-elevated border border-border bg-background"
         >
-          <div className="relative w-full" style={{ aspectRatio: "1920 / 1023" }}>
+          <div className="relative h-[68svh] min-h-[540px] max-h-[680px] overflow-hidden md:h-auto md:min-h-0 md:max-h-none md:aspect-[1920/1023]">
+            <div className="absolute left-[54.5%] top-1/2 h-[64svh] min-h-[510px] max-h-[620px] aspect-[1920/1023] -translate-x-1/2 -translate-y-1/2 md:inset-0 md:h-full md:min-h-0 md:max-h-none md:w-full md:translate-x-0 md:translate-y-0 md:aspect-auto">
             <img
               src={dubaiMap}
               alt="Dubai investment growth map showing tiered zones"
@@ -255,11 +257,41 @@ const GrowthMap = () => {
                 </motion.div>
               )}
             </AnimatePresence>
+            </div>
           </div>
         </motion.div>
 
+        <button
+          type="button"
+          onClick={() => setLegendOpen((open) => !open)}
+          aria-expanded={legendOpen}
+          aria-controls="mobile-zone-legend"
+          className="mt-4 flex min-h-[48px] w-full items-center justify-between border border-border bg-background px-4 text-left md:hidden"
+        >
+          <span className="flex items-center gap-3">
+            <span className="flex items-center -space-x-1">
+              {([1, 2, 3] as Tier[]).map((tier) => (
+                <span
+                  key={tier}
+                  className="h-3.5 w-3.5 rounded-full border border-background"
+                  style={{ backgroundColor: TIER_SWATCH[tier] }}
+                />
+              ))}
+            </span>
+            <span className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground">
+              Zone legend &amp; directory
+            </span>
+          </span>
+          <ChevronDown
+            className={`h-4 w-4 text-muted-foreground transition-transform duration-200 ${legendOpen ? "rotate-180" : ""}`}
+          />
+        </button>
+
         {/* Zone ledger */}
-        <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-px bg-border border border-border">
+        <div
+          id="mobile-zone-legend"
+          className={`${legendOpen ? "grid" : "hidden"} mt-0 grid-cols-1 gap-px border border-t-0 border-border bg-border md:mt-10 md:grid md:grid-cols-3 md:border-t`}
+        >
           {([1, 2, 3] as Tier[]).map((t) => (
             <div key={t} className="bg-background p-6">
               <div className="flex items-center gap-3 pb-4 mb-2 border-b border-border">
