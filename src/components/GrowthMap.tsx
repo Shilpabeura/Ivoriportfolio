@@ -120,8 +120,8 @@ const GrowthMap = () => {
           transition={{ duration: 0.8, delay: 0.1 }}
           className="relative w-full rounded-none overflow-hidden shadow-elevated border border-border bg-background"
         >
-          <div className="relative h-[72svh] min-h-[540px] max-h-[700px] overflow-hidden md:h-auto md:min-h-0 md:max-h-none md:aspect-[1920/1023]">
-            <div className="absolute left-1/2 top-0 h-full aspect-[1920/1023] -translate-x-1/2 md:inset-0 md:h-full md:w-full md:translate-x-0 md:aspect-auto">
+          <div className="relative h-[68svh] min-h-[540px] max-h-[680px] overflow-hidden md:h-auto md:min-h-0 md:max-h-none md:aspect-[1920/1023]">
+            <div className="absolute left-[54.5%] top-1/2 h-[64svh] min-h-[510px] max-h-[620px] aspect-[1920/1023] -translate-x-1/2 -translate-y-1/2 md:inset-0 md:h-full md:min-h-0 md:max-h-none md:w-full md:translate-x-0 md:translate-y-0 md:aspect-auto">
             <img
               src={dubaiMap}
               alt="Dubai investment growth map showing tiered zones"
