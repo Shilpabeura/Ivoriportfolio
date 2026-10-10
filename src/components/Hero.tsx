@@ -5,7 +5,7 @@ import dubaiMarina from "@/assets/dubai-marina.jpg";
 
 const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
+    <section className="relative lg:min-h-screen flex items-center overflow-hidden">
       {/* Background — clean white with subtle texture */}
       <div className="absolute inset-0 bg-background" />
 
@@ -13,7 +13,7 @@ const Hero = () => {
       <div className="absolute top-0 left-0 right-0 h-px bg-foreground/20" />
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-6 pt-28 pb-20">
+      <div className="relative z-10 container mx-auto px-6 pt-28 pb-12 lg:pb-20">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left: Text content */}
           <motion.div
@@ -102,7 +102,7 @@ const Hero = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 hidden lg:block"
       >
         <a href="#why" className="text-muted-foreground/50 hover:text-primary transition-colors">
           <ArrowDown className="w-5 h-5 animate-bounce" />
