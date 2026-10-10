@@ -1,41 +1,48 @@
-# Ivori site — elegance & modernization pass
+# Site Elegance & Mobile Polish Plan
 
-Goal: move the site from "clean editorial" to "modern luxury advisory" without changing content, data logic, or the ink-on-paper identity (paper #FDFCF8, ink #1A1A1A, slate #2C3E50, Crimson Pro + Inter, no gold/amber).
+## 1. Fix the mobile gap between section 1 and 2 (the issue you spotted)
 
-## 1. Imagery refresh (biggest visual win)
+**What you'll see:** On mobile, the hero no longer stretches to a full screen height. Content ends right after the Shekhar intro strip, and the next section starts immediately below — no odd empty band.
 
-Current photos have a hazy, yellowed, low-contrast cast that dates the site.
+**How:**
+- Hero: `min-h-screen` applies only on desktop (`lg:min-h-screen`); mobile height fits content naturally.
+- Reduce hero bottom padding on mobile (`pb-20` → `pb-12`) and hide the bouncing scroll arrow on small screens (it points into empty space).
+- Slightly reduce the next section's top padding on mobile (`py-24` → `py-16`, desktop unchanged).
 
-- Replace hero image with a cinematic, high-contrast golden-hour Dubai architectural shot (crisp glass/travertine, deep shadows, warm but not washed out)
-- Replace the Why Dubai and investor-section images with modern alternatives (terrace views, architectural detail, luxury interior with skyline)
-- Reframe hero image to an elegant 4:5 vertical composition with generous margins and subtle overlap with the floating ROI stat card
-- Keep the "photos are the only color-rich element" rule — richer photos, calmer UI
+## 2. Imagery refresh (the change you already approved)
 
-## 2. Layout refinement — fine-line editorial grid
+**What you'll see:** Sharper, higher-contrast Dubai photos — crisp golden-hour architecture instead of the current hazy, yellow-grey shots. The site instantly feels more premium.
 
-- Replace heavy bordered card boxes in WhyDifferent and InvestorBenefits with open, hairline-ruled editorial columns (thin rules, bold typographic anchors, more whitespace)
-- Restyle the ContactCTA WhatsApp card from the flat grey container into crisp ink-on-vellum "stationery" — refined typography, hairline frame, generous padding
-- Section headers get consistent folio numbering and hairline rules for a cohesive journal feel
+**How:**
+- Replace the hero image with a cinematic golden-hour architectural shot (4:5 vertical frame on desktop).
+- Replace the Why Dubai skyline and the investor-section interior with high-contrast terrace/interior-with-skyline views.
+- Warm golden-hour grading only — no blue tones, no AI-looking renders.
 
-## 3. Financial tools polish
+## 3. Lighter, more modern section styling
 
-- ROICalculator and MarketComparison: restyle pills/buttons to a minimalist private-banking ledger look — tabular numerals, understated active states, quiet ruled separators instead of boxed controls
-- Keep all XLSX-driven logic, values, and assumptions exactly as-is
+**What you'll see:** Less "boxed-in" feeling. Sections breathe with more whitespace and thin ruled lines instead of heavy card borders — closer to a luxury editorial magazine than a corporate template.
 
-## 4. Micro-polish
+**How:**
+- Why Dubai and investor-benefit cards: replace bordered boxes with open columns separated by hairline rules.
+- Contact section: restyle the WhatsApp card as crisp ink-on-paper stationery.
+- Consistent small folio numbers and hairline rules on section headers.
 
-- Consistent vertical rhythm between sections (uniform padding scale)
-- Subtle hover depth on images (soft scale/shadow, no gimmicks)
-- Check mobile spacing pass after changes
+## 4. Financial tools polish
 
-## Guardrails
+**What you'll see:** The ROI calculator and market comparison feel like a private-banking ledger — quieter buttons, cleaner numbers, no visual noise.
 
-- No gold/amber/bronze introduced anywhere (Tier-2 copper on the map stays as-is unless you say otherwise)
-- No script webfonts; ivori logo PNG remains the only handwriting
-- No copy, contact, pricing, or data changes
-- GrowthMap mobile crop/collapsed-legend behavior untouched
+**How:**
+- Restyle toggle pills and plan cards with understated active states and ruled separators.
+- Numbers use tabular figures so columns align.
+- All XLSX-driven logic, values, and copy stay exactly as-is.
+
+## Guardrails (unchanged)
+
+- No gold/amber/bronze anywhere (the map's Tier-2 copper stays unless you say otherwise).
+- No script webfonts — the ivori logo PNG remains the only handwriting.
+- No copy, contact, pricing, or data changes.
+- Growth map: full-width, mobile crop, collapsed legend — untouched.
 
 ## Verification
 
-- Playwright pass on desktop (1280px) and mobile (390px): all sections render, calculator + map + legend work, no console errors
-- Build log clean
+Playwright pass on desktop (1280px) and mobile (390px): the section 1→2 gap is gone, all sections render, calculator + map + legend work, no console errors, build log clean.
