@@ -32,7 +32,7 @@ const reasons = [
 
 const WhyDifferent = () => {
   return (
-    <section id="why" className="py-24 md:py-32 relative overflow-hidden">
+    <section id="why" className="py-16 md:py-32 relative overflow-hidden">
       <div className="container mx-auto px-6">
         {/* Editorial layout — image + text side-by-side */}
         <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
